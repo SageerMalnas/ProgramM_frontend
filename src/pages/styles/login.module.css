@@ -1,0 +1,102 @@
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100wh;
+    overflow: none;
+}
+
+.leftSection {
+    background-color: #17A2B8;
+    flex: 3;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.rightSection {
+    width: 25%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.astronaut img {
+    width: 250px;
+    height: auto;
+}
+
+.astronaut h2 {
+    color: #fff;
+    margin-top: 20px;
+    font-size: 28px;
+}
+
+.astronaut p {
+    color: #fff;
+    font-size: 16px;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #343434;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputGroup {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.inputGroup input {
+    width: 100%;
+    padding: 12px;
+    padding-left: 40px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    color: #828282;
+
+}
+
+.inputGroup .icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #828282;
+}
+
+.toggleIcon {
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #828282;
+}
+
+.Btn {
+    background-color: #17A2B8;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.loginText {
+    color: #828282;
+    margin-top: 20px;
+    text-align: center;
+}
