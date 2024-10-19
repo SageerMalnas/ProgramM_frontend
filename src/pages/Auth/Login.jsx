@@ -1,67 +1,11 @@
-// import React, { useContext, useState } from "react";
-// import AuthContext from "../context/AuthContext";
-// import { Link } from "react-router-dom";
-// import { toast } from "react-toastify";
-// import styles from './styles/login.module.css'; 
-
-// const Login = () => {
-//     const { login } = useContext(AuthContext);
-//     const [form, setForm] = useState({
-//         email: "",
-//         password: ""
-//     });
-
-//     const handleChange = (e) => {
-//         setForm((prev) => ({
-//             ...prev,
-//             [e.target.name]: e.target.value,
-//         }));
-//     };
-
-//     const handleSubmit = (e) => {
-//         e.preventDefault();
-//         login(form);
-//     };
-
-//     return (
-//         <div>
-//             <h2>Login</h2>
-//             <form onSubmit={handleSubmit}>
-//                 <input
-//                     type="email"
-//                     name="email"
-//                     placeholder="Email"
-//                     value={form.email}
-//                     onChange={handleChange}
-//                     required
-//                 />
-//                 <input
-//                     type="password"
-//                     name="password"
-//                     placeholder="Password"
-//                     value={form.password}
-//                     onChange={handleChange}
-//                     required
-//                 />
-//                 <button type="submit">Login</button>
-//             </form>
-//             <p>
-//                 Don't have an account? <Link to="/register">Register</Link>
-//             </p>
-//         </div>
-//     );
-// };
-
-// export default Login;
-
 import React, { useContext, useState } from "react";
-import AuthContext from "../context/AuthContext";
+import AuthContext from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import styles from './styles/login.module.css';
-import groupPhoto from '../assets/Group.png'
+import groupPhoto from '../../assets/Group.png'
 
 const Login = () => {
     const { login } = useContext(AuthContext);

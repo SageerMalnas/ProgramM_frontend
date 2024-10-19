@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
-import AuthContext from "../context/AuthContext";
+import AuthContext from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import styles from './styles/register.module.css'; // Import the CSS module
-import { FaUser, FaEnvelope, FaLock } from "react-icons/fa"; // Import icons
+import styles from './styles/register.module.css'; 
+import { FaUser, FaEnvelope, FaLock } from "react-icons/fa"; 
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
-import GroupImage from '../assets/Group.png'
+import GroupImage from '../../assets/Group.png'
 
 const Register = () => {
     const { register } = useContext(AuthContext);
