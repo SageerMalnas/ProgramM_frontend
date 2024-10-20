@@ -4,7 +4,6 @@ import Nav from '../../../components/navbar/Nav'
 const Settings = () => {
     return (
         <>
-            <Nav />
             <div>
                 Settings
             </div>

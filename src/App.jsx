@@ -17,9 +17,10 @@ function App() {
       <Routes>
         <Route path='/register' element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/analytics' element={<Analytics/>} />
-        <Route path='/settings' element={<Settings/>} />
+        <Route path='/dashboard' element={<Dashboard />}>
+          <Route path='analytics' element={<Analytics />} />
+          <Route path='settings' element={<Settings />} />
+        </Route>
       </Routes>
       <ToastContainer />
     </AuthProvider>

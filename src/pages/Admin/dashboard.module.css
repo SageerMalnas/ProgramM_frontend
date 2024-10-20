@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;  
+    position: fixed;
+  }
+  
+  /* Left Container: for the Nav bar */
+  .leftContainer {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+  
+  .rightContainer {
+    flex-grow: 1; 
+    padding: 2rem;
+    overflow: hidden;
+    background-color: #f4f4f4;
+  }
+  

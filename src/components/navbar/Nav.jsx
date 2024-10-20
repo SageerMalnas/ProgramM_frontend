@@ -7,7 +7,7 @@ import AuthContext from '../../context/AuthContext';
 import LogoutModal from '../../modal/logoutModal';
 
 export default function Nav() {
-  const { logout } = useContext(AuthContext); 
+
   const [isLogoutModalOpen, setLogoutModalOpen] = useState(false); 
 
   const toggleLogoutModal = () => {
@@ -32,6 +32,7 @@ export default function Nav() {
           <NavLink
             to="/dashboard"
             className={({ isActive }) => (isActive ? styles.active : '')}
+            style={{textDecoration: 'none'}}
           >
             <div className={styles.icon}>
               <FaThLarge color="#767575" />
@@ -40,8 +41,9 @@ export default function Nav() {
           </NavLink>
 
           <NavLink
-            to={'/analytics'}
+            to={'/dashboard/analytics'}
             className={({ isActive }) => (isActive ? styles.active : '')}
+            style={{textDecoration: 'none'}}
           >
             <div className={styles.icon}>
               <FaDatabase color="#767575" />
@@ -50,8 +52,9 @@ export default function Nav() {
           </NavLink>
 
           <NavLink
-            to={'/settings'}
+            to={'/dashboard/settings'}
             className={({ isActive }) => (isActive ? styles.active : '')}
+            style={{textDecoration: 'none'}}
           >
             <div className={styles.icon}>
               <FaCog color="#767575" />
