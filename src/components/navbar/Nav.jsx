@@ -30,7 +30,7 @@ export default function Nav() {
         {/* Navigation Links */}
         <nav className={styles.links}>
           <NavLink
-            to="/dashboard/board"
+            to="/dashboard"
             className={({ isActive }) => (isActive ? styles.active : '')}
             style={{textDecoration: 'none'}}
           >
