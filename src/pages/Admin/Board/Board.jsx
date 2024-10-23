@@ -23,7 +23,6 @@ export default function Board() {
   const dateString = getFormattedDate(new Date());
   const [showTaskModal, setShowTaskModal] = useState(false);
 
-  // Handler for when the select dropdown changes
   const handleDateRangeChange = (e) => {
     const selectedOption = options.find(option => option.value === Number(e.target.value));
     setSelectedDateRange(selectedOption);
@@ -39,7 +38,6 @@ export default function Board() {
       <div className={styles.groupTwo}>
         <h2>Board</h2>
 
-        {/* Replacing Listbox with a native select element */}
         <div className={styles.selectContainer}>
           <label htmlFor="date-range-select" className={styles.label}>
             Select Date Range:
@@ -68,7 +66,7 @@ export default function Board() {
         <TaskModal onClose={() => setShowTaskModal(false)} onSubmit={(taskData) => {/* API call to add task */}} />
       )}
 
-      {/* Plus Icon to Add Task */}
+
       <div className={styles.addTaskIcon} onClick={() => setShowTaskModal(true)}>
         <PlusCircle size={40} />
       </div>

@@ -12,7 +12,7 @@ const options = [
   { id: 3, name: 'This month', value: 30 },
 ];
 
-// Create TasksContext
+
 export const TaskContext = createContext({
   tasks: [],
   isLoading: false,
@@ -34,7 +34,7 @@ export function TaskProvider({ children }) {
   const token = user?.token;
   const { value } = selectedDateRange;
 
-  // Fetch tasks
+
   const fetchTasks = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -50,18 +50,17 @@ export function TaskProvider({ children }) {
     fetchTasks();
   }, [fetchTasks]);
 
-  ////////////////////////////////
-  // Minor Task Update
+
   const minorTaskUpdate = useCallback(
     async (task, updates) => {
       try {
-        // update state first
+    
         setTasks((draft) => {
           let tsk = draft.find((t) => t._id === task._id);
           if (!tsk) return;
           Object.assign(tsk, updates);
         });
-        // update the DB
+    
         await updateTask(task._id, updates, token);
       } catch (error) {
         toast.error(error.message);
@@ -70,8 +69,7 @@ export function TaskProvider({ children }) {
     [setTasks, token]
   );
 
-  ////////////////////////////////
-  // Major Task Update
+
   const majorTaskUpdate = useCallback(
     async (taskId, updates) => {
       try {
@@ -88,8 +86,7 @@ export function TaskProvider({ children }) {
     [setTasks, token]
   );
 
-  ////////////////////////////////
-  // Add new Task
+
   const addTask = useCallback(
     async (task) => {
       try {
@@ -104,8 +101,7 @@ export function TaskProvider({ children }) {
     [setTasks, token]
   );
 
-  /////////////////////////////////
-  // Delete Task
+
   const deleteTask = useCallback(
     async (taskId) => {
       try {

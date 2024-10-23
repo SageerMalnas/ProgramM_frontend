@@ -20,16 +20,16 @@ export default function Card({ task, isOpen, toggleDisclosure, onDeleteTask }) {
   const { minorTaskUpdate, majorTaskUpdate, deleteTask } = useContext(TaskContext);
 
   const handleTaskDelete = () => {
-    deleteTask(task._id);  // API call to delete task
+    deleteTask(task._id);  
   };
 
   const handleTaskUpdate = async (updates) => {
-    await majorTaskUpdate(task._id, updates);  // API call to update task
+    await majorTaskUpdate(task._id, updates);
     setShowEditModal(false);
   };
 
   const handleStatusChange = async (newStatus) => {
-    await minorTaskUpdate(task, { status: newStatus });  // API call to update task status
+    await minorTaskUpdate(task, { status: newStatus });
   };
 
   return (
