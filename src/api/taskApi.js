@@ -41,3 +41,7 @@ export const addTask = (task, token) => {
 export const deleteTask = (taskId, token) => {
   return fetchWithAuth(`${API_URL}/api/task/${taskId}`, 'DELETE', token);
 };
+
+export const getAnalytics = (token) => {
+  return fetchWithAuth(`${API_URL}/api/task/analytics`, 'GET', token);
+};

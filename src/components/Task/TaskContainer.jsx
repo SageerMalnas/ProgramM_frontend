@@ -26,9 +26,10 @@ export default function TasksContainer() {
           return (
             <div key={category.id} className={styles.category}>
               <h3>{category.title}</h3>
+
               <div className={styles.cardsContainer}>
-                {
-                  categoryTasks?.map((task) => (
+                {categoryTasks?.length > 0 ? (
+                  categoryTasks.map((task) => (
                     <Card
                       key={task._id}
                       task={task}
@@ -37,7 +38,11 @@ export default function TasksContainer() {
                       onDeleteTask={() => {}}
                     />
                   ))
-                }
+                ) : (
+                  <div className={styles.emptyCard}>
+                    <span>No tasks</span>
+                  </div>
+                )}
               </div>
             </div>
           );

@@ -31,9 +31,7 @@ const CheckLists = ({ task, isOpen, toggleDisclosure, onTaskUpdate }) => {
         <h4>
           Checklists ({dones.length}/{lists.length})
         </h4>
-        <button className={styles.toggleButton} onClick={toggleDisclosure}>
-          {isOpen ? 'Hide' : 'Show'}
-        </button>
+        
       </div>
 
       {isOpen && (

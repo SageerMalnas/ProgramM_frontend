@@ -1,0 +1,27 @@
+.data {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    max-width: 800px;
+  }
+  
+  .Box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #f9fcff;
+    gap: 1rem;
+    padding: 2rem;
+    border-radius: 0.5rem;
+  }
+  
+  .Box > li > div {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  
+  .Box > li::marker {
+    color: #90c4cc;
+  }
+  
