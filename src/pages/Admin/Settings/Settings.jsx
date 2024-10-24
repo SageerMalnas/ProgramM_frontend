@@ -8,8 +8,8 @@ import styles from './settings.module.css';
 
 export default function Settings() {
   const [isSafeToReset, setIsSafeToReset] = useState(false);
-  const [showOldPassword, setShowOldPassword] = useState(false); // Toggle for old password
-  const [showNewPassword, setShowNewPassword] = useState(false); // Toggle for new password
+  const [showOldPassword, setShowOldPassword] = useState(false); 
+  const [showNewPassword, setShowNewPassword] = useState(false); 
 
   const { user, logout } = useContext(AuthContext); 
   const { register,handleSubmit,reset,setError,formState: { errors, isSubmitting },} = useForm({
@@ -38,7 +38,7 @@ export default function Settings() {
 
       setIsSafeToReset(true);
 
-      // Log the user out if email or password is changed
+      
       if (data.email !== user.email || data.newPassword) {
         logout();
       }

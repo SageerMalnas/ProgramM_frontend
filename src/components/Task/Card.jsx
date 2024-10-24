@@ -82,17 +82,20 @@ export default function Card({ task, toggleDisclosure, onDeleteTask }) {
 
         <h3>{task.title}</h3>
         <div>
-            <div className={styles.arrowIcon} onClick={toggleChecklist}>
-          <ChevronDown />
-        </div>
-        <CheckLists
-          isOpen={isOpen}
-          toggleDisclosure={toggleDisclosure}
-          task={task}
-          onTaskUpdate={minorTaskUpdate}
-        />
+          <CheckLists
+            // isOpen={isOpen}
+            toggleDisclosure={toggleDisclosure}
+            task={task}
+            onTaskUpdate={minorTaskUpdate}
+          />
         </div>
         <div className={styles.categoryBadges}>
+          <button className={styles.DateButton}>
+            {task.dueDate ? format(new Date(task.dueDate), 'MMM do') : ''}
+          </button>
+          <div>
+            
+          </div>
           {categories.map((category) =>
             category.value !== task.status ? (
               <button
@@ -104,9 +107,7 @@ export default function Card({ task, toggleDisclosure, onDeleteTask }) {
               </button>
             ) : null
           )}
-          <button>
-            {task.dueDate ? format(new Date(task.dueDate), 'MMM do') : ''}
-          </button>
+
         </div>
 
       </div>
