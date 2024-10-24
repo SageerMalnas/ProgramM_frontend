@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import authApi from "../api/authApi";
 import { toast } from "react-toastify";
-
+import { updateUserDetails } from "../api/updateapi";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -46,6 +46,8 @@ export const AuthProvider = ({ children }) => {
         navigate("/login");
     };
 
+    
+    
     return (
         <AuthContext.Provider value={{ user, register, login, logout }}>
             {children}
