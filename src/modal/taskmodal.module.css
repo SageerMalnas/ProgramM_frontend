@@ -1,72 +1,141 @@
-.modal {
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modalContent {
-    background-color: #fefefe;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 400px;
-  }
-  
-  .modalHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-  }
-  
-  .closeButton {
-    background-color: transparent;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
-  .label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .input,
-  .select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
-  }
-  
-  .modalFooter {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-  }
-  
-  .cancelButton,
-  .saveButton {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 10px;
-  }
-  
-  .cancelButton {
-    background-color: #ccc;
-    color: #333;
-  }
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: #fff;
+  width: 520px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+  position: relative;
+}
+
+h3 {
+  font-size: 1.6rem;
+  color: #222;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 1rem;
+  color: #555;
+}
+
+span {
+  color: red;
+}
+
+.inputField {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  margin-top: 6px;
+  font-family: inherit;
+}
+
+.priorityOptions {
+  display: flex;
+  gap: 10px;
+}
+
+.priorityOptions button {
+  padding: 8px 14px;
+  border-radius: 50px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.priorityOptions button.selected {
+  background-color: #eef3ff;
+  border-color: #468dfb;
+  color: #468dfb;
+}
+
+.checklistItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.checklistItem input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.addBtn {
+  display: inline-block;
+  background-color: #f2f4f7;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #468dfb;
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #ff6868;
+  cursor: pointer;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.cancelBtn {
+  background-color: #f9f9f9;
+  color: #555;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.saveBtn {
+  background-color: #468dfb;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.saveBtn:disabled {
+  background-color: #92b4ff;
+}

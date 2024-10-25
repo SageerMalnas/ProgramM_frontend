@@ -123,9 +123,10 @@ export default function Card({ task, toggleDisclosure}) {
 
       {showEditModal && (
         <TaskModal
+          isOpen={showEditModal}
           onClose={() => setShowEditModal(false)}
-          onSubmit={handleTaskUpdate}
-          defaultTask={task}
+          actionType='edit'
+          existingTask={task._id}
         />
       )}
     </>

@@ -68,8 +68,7 @@ export default function TaskContainerPage() {
           </div>
         ))}
       </div>
-
-      {isTaskModalOpen && <TaskModal onClose={toggleTaskModal} />}
+      {isTaskModalOpen && <TaskModal isOpen={isTaskModalOpen} onClose={toggleTaskModal} actionType='add' />}
     </div>
   );
 }

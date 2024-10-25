@@ -1,5 +1,15 @@
+import axios from 'axios'
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
+export const fetchUserByEmail = async (email) =>{
+    try {
+        const response  = await axios.get(`${API_URL}/api/user${email}`);
+        return response.data.data.info;
+    } catch (error) {
+        console.log('Error fetching user by email: ',error);
+        throw error;
+    }
+}
 
 export const updateUserDetails = async (data, token) => {
     const res = await fetch(`${API_URL}/api/user/update`, {
