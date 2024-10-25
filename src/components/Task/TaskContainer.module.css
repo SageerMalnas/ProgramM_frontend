@@ -1,47 +1,83 @@
 .container {
-  display: flex;
-  justify-content: space-between;
+  flex: 1;
   padding: 20px;
-  width: fit-content;
-  align-items: center;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .categories {
   display: flex;
   gap: 15px;
-  width: 100%;
   overflow-x: auto;
-  overflow: auto;
+  height: 100%;
 }
 
 .category {
   flex: 1;
-  background-color: #EEF2F5; 
+  min-width: 290px;
+  background-color: #EEF2F5;
   border-radius: 8px;
-}
-
-.cardsContainer {
-  width: 100%;
-  margin-top: 10px;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  justify-content: center;
+  gap: 1rem;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
-h3 {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #333; 
+.icons {
+  display: flex;
+  gap: 0.5rem;
 }
 
+.taskCard {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 
 .emptyCard {
-  width: 100%;
+  text-align: center;
+  color: #5A67D8;
 }
 
-.emptyCard span {
-  color: #5A67D8;
-  width: 100%;
+
+.categories::-webkit-scrollbar {
+  height: 4px;
+  width: 6px;
+  background: #8DAAB9CC;
+}
+
+.categories::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.categories::-webkit-scrollbar-thumb {
+  background: #8DAAB9CC;
+  border-radius: 3px;
+}
+
+
+.taskCard::-webkit-scrollbar {
+  height: 4px;
+  width: 6px;
+  background: #8DAAB9CC;
+}
+
+.taskCard::-webkit-scrollbar-track {
+  background: #D6EAF4;
+  border-radius: 3px;
+}
+
+.taskCard::-webkit-scrollbar-thumb {
+  background: #8DAAB9CC;
+  border-radius: 3px;
 }
