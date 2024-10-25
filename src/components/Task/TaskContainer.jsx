@@ -50,7 +50,7 @@ export default function TaskContainerPage() {
 
             <div className={styles.taskCard}>
               {tasks
-                .filter((task) => task.status === category.value)
+                ?.filter((task) => task.status === category.value)
                 .map((task) => (
                   <Card
                     key={task._id}
@@ -59,7 +59,7 @@ export default function TaskContainerPage() {
                     toggleDisclosure={() => toggleDisclosure(task._id)}
                   />
                 ))}
-              {tasks.filter((task) => task.status === category.value).length === 0 && (
+              {tasks?.filter((task) => task.status === category.value).length === 0 && (
                 <div className={styles.emptyCard}>
                   <span>No tasks</span>
                 </div>
