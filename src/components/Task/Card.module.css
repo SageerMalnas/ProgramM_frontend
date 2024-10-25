@@ -79,29 +79,37 @@ h3 {
 
 .categoryBadges {
   display: flex;
-  gap: 0.75rem;
-
+  /* gap: 0.75rem; */
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .DateButton{
-  font-size: 0.5rem;
+  font-size: x-small;
   font-weight: 500;
-  width: 100%;
   border: none;
   background-color: #e6e6e6;
   color: #333;
   border-radius: 5px;
-  padding: 0.5rem 1rem;
+  padding: 2px;
 }
 
 .completedDateButton {
+  font-size: x-small;
   background-color: #63C05B;
   color: white;
+  border: none;
+  padding: 2px;
+  border-radius: 5px;
 }
 
 .overdueDateButton {
-  background-color: #ff2473;
+  background-color: #CF3636;
+  font-size: x-small;
   color: white;
+  border: none;
+  padding: 2px;
+  border-radius: 8px;
 }
 
 .categoryButton {

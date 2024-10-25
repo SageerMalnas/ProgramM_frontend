@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import logo from '../../assets/AppLogo.png';
 import styles from './nav.module.css';
 import AuthContext from '../../context/AuthContext';
-import LogoutModal from '../../modal/logoutModal';
+import ConfirmationModal from '../../modal/ConfirmationModal';
 
 export default function Nav() {
 
@@ -74,7 +74,7 @@ export default function Nav() {
 
       {/* Logout Modal */}
       {isLogoutModalOpen && (
-        <LogoutModal toggleLogoutModal={toggleLogoutModal} /> 
+        <ConfirmationModal toggleModal={toggleLogoutModal} actionType="logout" /> 
       )}
     </>
   );

@@ -6,6 +6,7 @@ import CheckLists from './Checklists';
 import TaskModal from '../../modal/TaskModal';
 import { TaskContext } from '../../context/TaskContext';
 import { format, isPast } from 'date-fns';
+import ConfirmationModal from '../../modal/ConfirmationModal';
 
 const categories = [
   { id: 1, title: 'Backlog', value: 'backlog' },
@@ -14,16 +15,17 @@ const categories = [
   { id: 4, title: 'Done', value: 'done' },
 ];
 
-export default function Card({ task, toggleDisclosure, onDeleteTask }) {
+export default function Card({ task, toggleDisclosure}) {
   const [showEditModal, setShowEditModal] = useState(false);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deletModalOpen, setDeleteModal] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
-  const { minorTaskUpdate, majorTaskUpdate, deleteTask } = useContext(TaskContext);
+  const { minorTaskUpdate, majorTaskUpdate} = useContext(TaskContext);
 
-  const handleTaskDelete = () => {
-    deleteTask(task._id);
-  };
+  const toggleDeleteModal = () =>{
+    setDeleteModal(!deletModalOpen);
+  }
+  
 
   const handleTaskUpdate = async (updates) => {
     await majorTaskUpdate(task._id, updates);
@@ -45,7 +47,7 @@ export default function Card({ task, toggleDisclosure, onDeleteTask }) {
   ));
 
   const priorityClass = task.priority === 'low' ? styles.lowPriority :
-    task.priority === 'moderate' ? styles.moderarePriority :
+    task.priority === 'moderate' ? styles.moderatePriority :
       styles.highPriority;
 
   const isDueDatePast = task.dueDate && isPast(new Date(task.dueDate));
@@ -60,7 +62,9 @@ export default function Card({ task, toggleDisclosure, onDeleteTask }) {
       <div className={styles.container}>
         <div className={styles.groupOne}>
           <span className={`${styles.priorityIndicator} ${priorityClass}`}>
+            <li>
             {task.priority.toUpperCase()} {assignedUserInitials} PRIORITY
+            </li>
           </span>
 
           <div className={styles.menu}>
@@ -73,7 +77,7 @@ export default function Card({ task, toggleDisclosure, onDeleteTask }) {
                 <div className={styles.menuItem} onClick={() => { setShowEditModal(true), setShowMenu(false) }}>
                   Edit
                 </div>
-                <div className={styles.menuItem} onClick={handleTaskDelete} style={{ color: 'red' }}>
+                <div className={styles.menuItem} onClick={toggleDeleteModal} style={{ color: 'red' }}>
                   Delete
                 </div>
                 <div className={styles.menuItem}>
@@ -83,6 +87,9 @@ export default function Card({ task, toggleDisclosure, onDeleteTask }) {
             )}
           </div>
         </div>
+        {deletModalOpen && (
+          <ConfirmationModal toggleModal={toggleDeleteModal} actionType="deleteTask" taskId={task._id}/>
+        ) }
 
         <h3>{task.title}</h3>
         <div>
@@ -94,10 +101,10 @@ export default function Card({ task, toggleDisclosure, onDeleteTask }) {
           />
         </div>
         <div className={styles.categoryBadges}>
-          <button className={styles.dateButtonClass}>
+          <button className={dateButtonClass}>
             {task.dueDate ? format(new Date(task.dueDate), 'MMM do') : ''}
           </button>
-
+          
           {categories.map((category) =>
             category.value !== task.status ? (
               <button
@@ -109,6 +116,8 @@ export default function Card({ task, toggleDisclosure, onDeleteTask }) {
               </button>
             ) : null
           )}
+         
+         
         </div>
       </div>
 

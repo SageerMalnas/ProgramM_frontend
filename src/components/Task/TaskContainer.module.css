@@ -15,7 +15,7 @@
 
 .category {
   flex: 1;
-  min-width: 290px;
+  min-width: 250px;
   background-color: #EEF2F5;
   border-radius: 8px;
   padding: 1rem;
