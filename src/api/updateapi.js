@@ -3,7 +3,7 @@ const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const fetchUserByEmail = async (email) =>{
     try {
-        const response  = await axios.get(`${API_URL}/api/user${email}`);
+        const response  = await axios.get(`${API_URL}/api/user/${email}`);
         return response.data.data.info;
     } catch (error) {
         console.log('Error fetching user by email: ',error);

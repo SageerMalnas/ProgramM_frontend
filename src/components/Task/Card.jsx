@@ -63,7 +63,7 @@ export default function Card({ task, toggleDisclosure}) {
         <div className={styles.groupOne}>
           <span className={`${styles.priorityIndicator} ${priorityClass}`}>
             <li>
-            {task.priority.toUpperCase()} {assignedUserInitials} PRIORITY
+            {assignedUserInitials} {task.priority.toUpperCase()} PRIORITY
             </li>
           </span>
 
@@ -77,11 +77,11 @@ export default function Card({ task, toggleDisclosure}) {
                 <div className={styles.menuItem} onClick={() => { setShowEditModal(true), setShowMenu(false) }}>
                   Edit
                 </div>
-                <div className={styles.menuItem} onClick={toggleDeleteModal} style={{ color: 'red' }}>
-                  Delete
-                </div>
                 <div className={styles.menuItem}>
                   Share
+                </div>
+                <div className={styles.menuItem} onClick={toggleDeleteModal} style={{ color: 'red' }}>
+                  Delete
                 </div>
               </div>
             )}
@@ -125,8 +125,8 @@ export default function Card({ task, toggleDisclosure}) {
         <TaskModal
           isOpen={showEditModal}
           onClose={() => setShowEditModal(false)}
-          actionType='edit'
-          existingTask={task._id}
+          actionType = 'edit'
+          existingTask={task}
         />
       )}
     </>

@@ -5,9 +5,10 @@ import toast from 'react-hot-toast';
 import {fetchUserByEmail} from '../api/updateapi';
 import { TaskContext } from '../context/TaskContext';
 import AuthContext from '../context/AuthContext';
+import { Trash2, Plus, Circle, CheckCircle } from 'lucide-react';
 
 const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
-  const { addTask, majorTaskUpdate } = useContext(TaskContext);
+  const { addTask, majorTaskUpdate, tasks, setTasks } = useContext(TaskContext);
   const { user } = useContext(AuthContext);
 
   const [title, setTitle] = useState('');
@@ -20,11 +21,11 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
 
   useEffect(() => {
     if (actionType === 'edit' && existingTask) {
-      setTitle(existingTask.title || '');
-      setPriority(existingTask.priority || 'low');
-      setChecklists(existingTask.checklists || [{ title: '', checked: false }]);
+      setTitle(existingTask.title);
+      setPriority(existingTask.priority);
+      setChecklists(existingTask.checklists.length >0 ? existingTask.checklists : ['']);
       setDueDate(existingTask.dueDate ? new Date(existingTask.dueDate).toISOString().split('T')[0] : '');
-      setAssignedTo(existingTask.assignedTo ? existingTask.assignedTo.email : '');
+      setAssignedTo(existingTask.assignedTo?.length > 0 ? existingTask.assignedTo[0].email : '');
     }
   }, [actionType, existingTask]);
 
@@ -45,20 +46,19 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
   };
 
   const handleSaveTask = async () => {
-    setErrorMessage(''); // Clear previous error
+    setErrorMessage('');
 
     if (!title.trim()) {
       setErrorMessage('Title is required');
       return;
     }
-    if (!dueDate) {
-      setErrorMessage('Due date is required');
+    if (checklists.length === 0 || checklists.some(item => item.title.trim() === '')) {
+      setErrorMessage('Please enter at least one checklist item');
       return;
     }
 
     try {
       setIsSaving(true);
-      // Check if assigned user exists by email
       let assignedUserId = null;
       if (assignedTo) {
         const assignedUser = await fetchUserByEmail(assignedTo);
@@ -81,9 +81,14 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
 
       if (actionType === 'edit' && existingTask) {
         await majorTaskUpdate(existingTask._id, taskData);
+        // setTasks((prevTasks) =>
+        //   prevTasks.map((task) => (task._id === existingTask._id ? updatedTask : task))
+        // );
         toast.success('Task updated successfully');
       } else {
         await addTask(taskData);
+        // Add the new task to the context immediately
+        // setTasks((prevTasks) => [...prevTasks, newTask]);
         toast.success('Task added successfully');
       }
 
@@ -112,7 +117,7 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
         </label>
 
         <label>
-          Select Priority
+          Select Priority  <span>*</span>
           <div className={styles.priorityOptions}>
             {['high', 'moderate', 'low'].map((level) => (
               <button
@@ -138,7 +143,7 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
         </label>
 
         <label>
-          Checklist
+          Checklist  <span>*</span>
           <div>
             {checklists.map((item, index) => (
               <div key={index} className={styles.checklistItem}>
@@ -149,7 +154,7 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
                   placeholder="Checklist item"
                 />
                 <button type="button" onClick={() => handleRemoveChecklist(index)} className={styles.removeBtn}>
-                  ❌
+                <Trash2 />
                 </button>
               </div>
             ))}
@@ -160,7 +165,7 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
         </label>
 
         <label>
-          Select Due Date <span>*</span>
+          Select Due Date
           <input
             type="date"
             value={dueDate}

@@ -1,0 +1,88 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.modal input{
+    width: 100%;
+    border: 1px solid #b5b4b4;
+    border-radius: 3px;
+    border-color: #b5b4b4;
+    height: 30px;
+}
+
+.modal h3{
+    font-size: small;
+    display: flex;
+    justify-content: flex-start;
+    font-weight: 600;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 10px;
+}
+
+.cancel{
+    border-color: #CF3636;
+    background-color: white;
+    color: #CF3636;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: 600;
+    width: 50%;
+    font-size: xx-small;
+}
+
+.add{
+    background-color: #17A2B8;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: xx-small;
+    font-weight: 600;
+    width: 50%;
+}
+
+.after{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.ok{
+    background-color: #17A2B8;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: xx-small;
+    font-weight: 600;
+    width: 50%;
+}
