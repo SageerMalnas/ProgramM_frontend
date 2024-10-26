@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import styles from './TaskModal.module.css'; // assuming modular CSS
+import styles from './taskmodal.module.css';
 import toast from 'react-hot-toast';
 import {fetchUserByEmail} from '../api/updateapi';
 import { TaskContext } from '../context/TaskContext';
@@ -8,9 +8,8 @@ import AuthContext from '../context/AuthContext';
 
 const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
   const { addTask, majorTaskUpdate } = useContext(TaskContext);
-  const { user } = useContext(AuthContext); // To get the logged-in user's ID
+  const { user } = useContext(AuthContext);
 
-  // States for Task fields
   const [title, setTitle] = useState('');
   const [priority, setPriority] = useState('low');
   const [checklists, setChecklists] = useState([{ title: '', checked: false }]);
@@ -19,7 +18,6 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isSaving, setIsSaving] = useState(false);
 
-  // Effect to pre-fill fields if editing
   useEffect(() => {
     if (actionType === 'edit' && existingTask) {
       setTitle(existingTask.title || '');
@@ -78,7 +76,7 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
         checklists,
         dueDate,
         assignedTo: assignedUserId,
-        createdBy: user._id, // The ID of the logged-in user
+        createdBy: user._id,
       };
 
       if (actionType === 'edit' && existingTask) {
@@ -89,7 +87,7 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
         toast.success('Task added successfully');
       }
 
-      onClose(); // Close modal after success
+      onClose();
     } catch (error) {
       setErrorMessage(error.message || 'An error occurred while saving the task');
     } finally {
