@@ -6,6 +6,7 @@ import { FaEnvelope, FaLock } from "react-icons/fa";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import styles from './styles/login.module.css';
 import groupPhoto from '../../assets/Group.png'
+import { Eye, Lock, Mail, User } from 'lucide-react';
 
 const Login = () => {
     const { login } = useContext(AuthContext);
@@ -32,9 +33,10 @@ const Login = () => {
         <div className={styles.container}>
             <div className={styles.leftSection}>
                 <div className={styles.astronaut}>
+                <figure className={styles.circle}></figure>
                     <img src={groupPhoto} alt="Astronaut" />
-                    <h2>Welcome back my friend</h2>
-                    <p>Enter your credentials and let's get started.</p>
+                    <h2>Welcome aboard my friend</h2>
+                    <p>Just a couple of clicks and we start.</p>
                 </div>
             </div>
             <div className={styles.rightSection}>
@@ -73,13 +75,13 @@ const Login = () => {
                             />
                         )}
                     </div>
-                    <button className={styles.Btn} type="submit">Login</button>
+                    <button className={styles.LoginBtn} type="submit">Log in</button>
                 </form>
                 <p className={styles.loginText}>
                     Don't have an account?
                 </p>
                 <Link to="/register">
-                    <button className={styles.Btn}>Register</button>
+                    <button className={styles.RegBtn}>Register</button>
                 </Link>
             </div>
         </div>

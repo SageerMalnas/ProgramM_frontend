@@ -36,7 +36,8 @@ function copyLink(taskId) {
     navigator.clipboard.writeText(url)
       .then(() => {
         console.log('URL copied:', url); 
-        toast.success('URL copied to clipboard');
+        toast.success('Link Copied');
+        window.location.href = url;
       })
       .catch((error) => {
         console.error('Failed to copy URL:', error);

@@ -1,8 +1,22 @@
 .container {
     display: flex;
     height: 100vh;
-    width: 100wh;
-    overflow: none;
+    width: 100vw;
+    overflow: hidden; 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.circle {
+    position: absolute;
+    background: #317F8B;
+    border-radius: 50%;
+    height: 230px;
+    width: 230px;
+    top: 33%; 
+    left: 46%;
+    transform: translate(-33%, -46%);
+    z-index: 1;
+    opacity: 60%;
 }
 
 .leftSection {
@@ -13,31 +27,38 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+    text-align: center; 
 }
 
 .rightSection {
-    width: 25%;
+    width: 30%;
     padding: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 .astronaut img {
-    width: 250px;
+    width: 180px;
     height: auto;
+    position: relative; 
+    z-index: 2;
 }
 
 .astronaut h2 {
     color: #fff;
     margin-top: 20px;
-    font-size: 28px;
+    font-size: 22px;
+    font-weight: 600;
 }
 
 .astronaut p {
     color: #fff;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 h2 {
@@ -49,11 +70,16 @@ h2 {
 .form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    width: 100%;
+    max-width: 300px; 
 }
 
 .inputGroup {
     position: relative;
     margin-bottom: 20px;
+    width: 100%; 
 }
 
 .inputGroup input {
@@ -64,7 +90,7 @@ h2 {
     border: 1px solid #ccc;
     font-size: 16px;
     color: #828282;
-
+    box-sizing: border-box;
 }
 
 .inputGroup .icon {
@@ -77,22 +103,37 @@ h2 {
 
 .toggleIcon {
     position: absolute;
-    right: -30px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
     color: #828282;
 }
 
-.Btn {
+.RegBtn {
     background-color: #17A2B8;
     color: #fff;
     padding: 12px;
     border: none;
     border-radius: 50px;
-    font-size: 18px;
+    font-size: 14px;
     cursor: pointer;
     width: 100%;
+    margin-top: 20px;
+}
+
+.LoginBtn {
+    margin-top: 20px;
+    width: 300px;
+    border: 1px solid #17A2B8;
+    background-color: white;
+    color: #17A2B8;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 12px;
+    font-weight: 500;
+    text-align: center;
+
 }
 
 .loginText {

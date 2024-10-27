@@ -43,7 +43,7 @@
 
 
 .cancelButton {
-    border-color: #CF3636;
+    border: 1px solid #CF3636;
     background-color: white;
     color: #CF3636;
     padding: 10px;

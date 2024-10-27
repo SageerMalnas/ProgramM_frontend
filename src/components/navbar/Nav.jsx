@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { FaDatabase, FaSignOutAlt, FaThLarge, FaCog } from 'react-icons/fa';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../../assets/AppLogo.png';
 import styles from './nav.module.css';
 import AuthContext from '../../context/AuthContext';
 import ConfirmationModal from '../../modal/ConfirmationModal';
+import { Database, LogOut, PanelsTopLeft, Settings } from 'lucide-react';
 
 export default function Nav() {
 
@@ -35,7 +35,7 @@ export default function Nav() {
             style={{textDecoration: 'none'}}
           >
             <div className={styles.icon}>
-              <FaThLarge color="#767575" />
+              <PanelsTopLeft size={14} color="#767575" />
             </div>
             <span className={styles.NavText}>Board</span>
           </NavLink>
@@ -46,7 +46,7 @@ export default function Nav() {
             style={{textDecoration: 'none'}}
           >
             <div className={styles.icon}>
-              <FaDatabase color="#767575" />
+              <Database size={14} color="#767575" />
             </div>
             <span className={styles.NavText}>Analytics</span>
           </NavLink>
@@ -57,7 +57,7 @@ export default function Nav() {
             style={{textDecoration: 'none'}}
           >
             <div className={styles.icon}>
-              <FaCog color="#767575" />
+              <Settings size={14} color="#767575" />
             </div>
             <span className={styles.NavText}>Settings</span>
           </NavLink>
@@ -66,7 +66,7 @@ export default function Nav() {
         {/* Logout Button */}
         <div onClick={toggleLogoutModal} className={styles.logout}>
           <div className={styles.icon}>
-            <FaSignOutAlt />
+            <LogOut size={14} />
           </div>
           <span>Logout</span>
         </div>

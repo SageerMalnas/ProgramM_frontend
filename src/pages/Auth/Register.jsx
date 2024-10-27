@@ -37,9 +37,10 @@ const Register = () => {
         <div className={styles.container}>
             <div className={styles.leftSection}>
                 <div className={styles.astronaut}>
+                <figure className={styles.circle}></figure>
                     <img src={GroupImage} alt="Astronaut Mascot" />
                     <h2>Welcome aboard my friend</h2>
-                    <p>Just a couple of clicks and we start</p>
+                    <p>Just a couple of clicks and we start.</p>
                 </div>
             </div>
 
@@ -96,13 +97,13 @@ const Register = () => {
                             {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
                         </div>
                     </div>
-                    <button type="submit" className={styles.Btn}>Register</button>
+                    <button type="submit" className={styles.RegBtn}>Register</button>
                 </form>
                 <p className={styles.loginText}>
                     Have an account?
                 </p>
                 <Link to="/login">
-                    <button className={styles.Btn}>Login</button>
+                    <button className={styles.LoginBtn}>Log in</button>
                 </Link>
             </div>
         </div>
