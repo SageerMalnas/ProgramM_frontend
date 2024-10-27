@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import AuthContext from '../../../context/AuthContext';
 import { TaskContext } from '../../../context/TaskContext';
 import styles from './board.module.css';
 import TasksContainer from '../../../components/Task/TaskContainer';
 import Modal from '../../../modal/AddUserModal';
-import {UsersRound} from 'lucide-react'
+import {UsersRound} from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 function getFormattedDate(date) {
@@ -27,7 +27,7 @@ const fetchWithAuth = async (url, method, token, body = null) => {
 
 export default function Board() {
   const { user } = useContext(AuthContext);
-  const { selectedDateRange, setSelectedDateRange } = useContext(TaskContext);
+  const { selectedDateRange, setSelectedDateRange, fetchTasks } = useContext(TaskContext);
   const dateString = getFormattedDate(new Date());
 
 
@@ -35,18 +35,19 @@ export default function Board() {
   const token = user?.token;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+
+  const handleDateRangeChange = async (e) => {
+    const selectedOption = options.find(option => option.value === Number(e.target.value));
+    setSelectedDateRange(selectedOption);
+    // Fetch tasks based on the selected date range
+    await fetchTasks(selectedOption.value, token);
+  };
+
     const handleAddUser = async (email) => {
         const response = await fetchWithAuth(`${API_URL}/api/user/adduser`, 'POST', token, { email });
         return response;
     };
 
-
-
-
-  const handleDateRangeChange = (e) => {
-    const selectedOption = options.find(option => option.value === Number(e.target.value));
-    setSelectedDateRange(selectedOption);
-  };
 
   return (
     <div className={styles.container}>

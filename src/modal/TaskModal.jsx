@@ -2,10 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styles from './taskmodal.module.css';
 import toast from 'react-hot-toast';
-import {fetchUserByEmail} from '../api/updateapi';
+import { fetchUserByEmail } from '../api/updateapi';
 import { TaskContext } from '../context/TaskContext';
 import AuthContext from '../context/AuthContext';
-import { Trash2, Plus, Circle, CheckCircle } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
+import { RadioGroup } from '@headlessui/react';
 
 const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
   const { addTask, majorTaskUpdate, tasks, setTasks } = useContext(TaskContext);
@@ -23,7 +24,7 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
     if (actionType === 'edit' && existingTask) {
       setTitle(existingTask.title);
       setPriority(existingTask.priority);
-      setChecklists(existingTask.checklists.length >0 ? existingTask.checklists : ['']);
+      setChecklists(existingTask.checklists.length > 0 ? existingTask.checklists : ['']);
       setDueDate(existingTask.dueDate ? new Date(existingTask.dueDate).toISOString().split('T')[0] : '');
       setAssignedTo(existingTask.assignedTo?.length > 0 ? existingTask.assignedTo[0].email : '');
     }
@@ -103,7 +104,6 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
   return isOpen ? (
     <div className={styles.modalBackdrop}>
       <div className={styles.modalContent}>
-        <h3>{actionType === 'edit' ? 'Edit Task' : 'Add New Task'}</h3>
 
         <label>
           Title <span>*</span>
@@ -116,20 +116,34 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
           />
         </label>
 
-        <label>
-          Select Priority  <span>*</span>
-          <div className={styles.priorityOptions}>
+        <div className={styles.priorityOptions}>
+          <label>
+            Select Priority <span style={{ color: 'red' }}>*</span>
+          </label>
+
+          <div className={styles.radioGroup}>
             {['high', 'moderate', 'low'].map((level) => (
-              <button
+              <div
                 key={level}
                 onClick={() => setPriority(level)}
-                className={priority === level ? styles.selected : ''}
+                className={`${styles.radioOption} ${priority === level ? styles.checkedOption : ''}`}
               >
-                {level.toUpperCase()}
-              </button>
+                <span
+                  style={{
+                    color:
+                      level === 'high' ? '#ff2473' :
+                        level === 'moderate' ? '#18b0ff' :
+                          '#63c05b',
+                  }}
+                >
+                  •
+                </span>
+                {level.toUpperCase()} PRIORITY
+              </div>
             ))}
           </div>
-        </label>
+        </div>
+
 
         <label>
           Assign to:
@@ -154,7 +168,7 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
                   placeholder="Checklist item"
                 />
                 <button type="button" onClick={() => handleRemoveChecklist(index)} className={styles.removeBtn}>
-                <Trash2 />
+                  <Trash2 />
                 </button>
               </div>
             ))}

@@ -23,6 +23,12 @@ export default function TaskContainerPage() {
     );
   };
 
+  const closeAllDisclosures = () => {
+    if (openDisclosures.length > 0) {
+      setOpenDisclosures([]);
+    }
+  };
+
   const toggleTaskModal = () => setTaskModalOpen((prev) => !prev);
 
   if (isLoading) {
@@ -43,7 +49,7 @@ export default function TaskContainerPage() {
                 <CopyMinus
                   size={20}
                   color={openDisclosures.length ? '#17a2b8' : '#767575'}
-                  onClick={() => setOpenDisclosures([])}
+                  onClick={closeAllDisclosures}
                 />
               </div>
             </div>

@@ -27,7 +27,7 @@ const fetchWithAuth = async (url, method, token, body = null) => {
 // API functions
 
 export const getTasks = (range, token) => {
-  return fetchWithAuth(`${API_URL}/api/task`, 'GET', token);
+  return fetchWithAuth(`${API_URL}/api/task?range=${range}`, 'GET', token);
 };
 
 export const updateTask = (taskId, updates, token) => {

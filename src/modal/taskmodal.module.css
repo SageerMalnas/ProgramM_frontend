@@ -13,7 +13,7 @@
 
 .modalContent {
   background-color: #fff;
-  width: 520px;
+  width: 300px;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -21,18 +21,13 @@
   position: relative;
 }
 
-h3 {
-  font-size: 1.6rem;
-  color: #222;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
 
 label {
   display: block;
   margin-bottom: 16px;
   font-size: 1rem;
-  color: #555;
+  color: black;
+  font-weight: bolder;
 }
 
 span {
@@ -43,31 +38,54 @@ span {
   width: 100%;
   padding: 12px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 0.95rem;
   margin-top: 6px;
   font-family: inherit;
 }
 
+
 .priorityOptions {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 5px;
 }
 
-.priorityOptions button {
-  padding: 8px 14px;
-  border-radius: 50px;
-  border: 1px solid #ddd;
+.priorityOptions label{
+  margin-top: 15px;
+}
+
+.radioGroup{
+  flex: 1;
+  display: flex;
+  gap: 1.5rem;
+  /* justify-content: space-between; */
+  justify-content: center;
+  align-items: center;
+}
+
+
+.radioOptions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.radioOption {
+  padding: 2px;
+  border: 1px solid #EEECEC ;
+  border-radius: 0.5rem;
+  font-size: 0.6rem;
+  width: 100%;
   cursor: pointer;
-  background-color: #f9f9f9;
-  font-size: 0.85rem;
-  color: #444;
+  color: #767575;
 }
 
-.priorityOptions button.selected {
-  background-color: #eef3ff;
-  border-color: #468dfb;
-  color: #468dfb;
+.checkedOption {
+  /* background-color: var(--neutral); */
+  background-color: #EEECEC;
 }
 
 .checklistItem {

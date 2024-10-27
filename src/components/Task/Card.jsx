@@ -50,11 +50,11 @@ export default function Card({ task, toggleDisclosure}) {
     task.priority === 'moderate' ? styles.moderatePriority :
       styles.highPriority;
 
-  const isDueDatePast = task.dueDate && isPast(new Date(task.dueDate));
+  // const isDueDatePast = task.dueDate && isPast(new Date(task.dueDate));
   const dateButtonClass = task.status === 'done'
     ? styles.completedDateButton
-    : isDueDatePast
-      ? styles.overdueDateButton
+    : task.priority ==='high'
+      ? styles.highPriorityDate
       : styles.DateButton;
 
   return (
@@ -91,7 +91,8 @@ export default function Card({ task, toggleDisclosure}) {
           <ConfirmationModal toggleModal={toggleDeleteModal} actionType="deleteTask" taskId={task._id}/>
         ) }
 
-        <h3>{task.title}</h3>
+        <h3 >{task.title}</h3>
+        {/* <h3 data-fulltitle={task.title}>{task.title}</h3> */}
         <div>
           <CheckLists
             // isOpen={isOpen}

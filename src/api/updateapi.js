@@ -11,6 +11,16 @@ export const fetchUserByEmail = async (email) =>{
     }
 }
 
+export const getUser  = async() =>{
+    axios.get(`${API_URL}/api/user`) 
+    .then(response => {
+        console.log('Users:', response.data.data.users); 
+    })
+    .catch(error => {
+        console.error('Error fetching users:', error);
+    });
+}
+
 export const updateUserDetails = async (data, token) => {
     const res = await fetch(`${API_URL}/api/user/update`, {
         method: 'PATCH',

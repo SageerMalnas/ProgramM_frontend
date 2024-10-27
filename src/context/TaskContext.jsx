@@ -35,10 +35,10 @@ export function TaskProvider({ children }) {
   const { value } = selectedDateRange;
 
 
-  const fetchTasks = useCallback(async () => {
+  const fetchTasks = useCallback(async (range = value,token) => {
     setIsLoading(true);
     try {
-      const resObj = await getTasks(value, token);
+      const resObj = await getTasks(range, token);
       setTasks(resObj.data.tasks);
     } catch (error) {
       toast.error(error.message);
@@ -47,8 +47,9 @@ export function TaskProvider({ children }) {
   }, [token, setTasks, value]);
 
   useEffect(() => {
-    fetchTasks();
-  }, [fetchTasks]);
+    // fetchTasks();
+    fetchTasks(selectedDateRange.value, token);
+  }, [fetchTasks, , selectedDateRange.value, token]);
 
 
   const minorTaskUpdate = useCallback(
