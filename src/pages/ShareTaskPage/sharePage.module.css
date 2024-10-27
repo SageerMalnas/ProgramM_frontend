@@ -1,0 +1,57 @@
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .header {
+    padding: 1rem 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .logo {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  h1 {
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .main {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    padding: 1rem;
+    width: 100%;
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .header {
+      padding: 1rem;
+      gap: 0.5rem;
+    }
+  
+    h1 {
+      font-weight: 500;
+      font-size: 1.25rem;
+    }
+  
+    .logo {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+  

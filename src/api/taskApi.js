@@ -30,6 +30,10 @@ export const getTasks = (range, token) => {
   return fetchWithAuth(`${API_URL}/api/task?range=${range}`, 'GET', token);
 };
 
+export const getTaskById = (taskId, token) => {
+  return fetchWithAuth(`${API_URL}/api/task/${taskId}`, 'GET', token);
+};
+
 export const updateTask = (taskId, updates, token) => {
   return fetchWithAuth(`${API_URL}/api/task/${taskId}`, 'PATCH', token, updates);
 };

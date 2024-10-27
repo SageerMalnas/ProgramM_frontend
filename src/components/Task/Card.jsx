@@ -7,6 +7,9 @@ import TaskModal from '../../modal/TaskModal';
 import { TaskContext } from '../../context/TaskContext';
 import { format, isPast } from 'date-fns';
 import ConfirmationModal from '../../modal/ConfirmationModal';
+// import copyLink from './copyLink';
+import toast from 'react-hot-toast';
+
 
 const categories = [
   { id: 1, title: 'Backlog', value: 'backlog' },
@@ -26,7 +29,30 @@ export default function Card({ task, toggleDisclosure}) {
     setDeleteModal(!deletModalOpen);
   }
   
+  
+function copyLink(taskId) {
+  try {
+    const url = `${window.location.origin}/tasks/${taskId}`;
+    navigator.clipboard.writeText(url)
+      .then(() => {
+        console.log('URL copied:', url); 
+        toast.success('URL copied to clipboard');
+      })
+      .catch((error) => {
+        console.error('Failed to copy URL:', error);
+        toast.error('Failed to copy URL');
+      });
+  } catch (error) {
+    console.error('Error in copyLink function:', error);
+    toast.error('Unexpected error occurred');
+  }
+}
 
+  const handleShareClick = () => {
+    console.log('Share clicked, task ID:', task._id); // Debugging output
+    copyLink(task._id); // Call the copyLink function
+    setShowMenu(false); // Hide menu after copying
+  };
   const handleTaskUpdate = async (updates) => {
     await majorTaskUpdate(task._id, updates);
     setShowEditModal(false);
@@ -77,7 +103,7 @@ export default function Card({ task, toggleDisclosure}) {
                 <div className={styles.menuItem} onClick={() => { setShowEditModal(true), setShowMenu(false) }}>
                   Edit
                 </div>
-                <div className={styles.menuItem}>
+                <div className={styles.menuItem} onClick={handleShareClick}>
                   Share
                 </div>
                 <div className={styles.menuItem} onClick={toggleDeleteModal} style={{ color: 'red' }}>

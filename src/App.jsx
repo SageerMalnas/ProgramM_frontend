@@ -11,30 +11,40 @@ import Settings from './pages/Admin/Settings/Settings';
 import Board from './pages/Admin/Board/Board';
 import { TaskProvider } from './context/TaskContext';
 import ProtectedRoute from './protectedRoute';
+import ShareTaskPage from './pages/ShareTaskPage/shareTaskPage'
+import { Toaster } from 'react-hot-toast';
+
+
 
 function App() {
 
 
   return (
-    <AuthProvider>
-      <TaskProvider>
-      <Routes>
-      <Route path="/" element={<Navigate to="/login" />} />
-        <Route path='/register' element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route element={<ProtectedRoute />}>
-        <Route path='/dashboard' element={<Dashboard />}>
-        <Route index element={<Navigate to="board" />} />
-          <Route path='analytics' element={<Analytics />} />
-          <Route path='settings' element={<Settings />} />
-          <Route path='board' element={<Board/>}/>
-        </Route>
-        </Route>
-        <Route path='*' element={<Navigate to="/login"/>}/>
-      </Routes>
-      </TaskProvider>
-      <ToastContainer />
-    </AuthProvider>
+    <>
+      <Toaster position="top-right" reverseOrder={false} />
+      <AuthProvider>
+        <TaskProvider>
+          <Routes>
+
+            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path='/register' element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path='/dashboard' element={<Dashboard />}>
+                <Route index element={<Navigate to="board" />} />
+                <Route path='analytics' element={<Analytics />} />
+                <Route path='settings' element={<Settings />} />
+                <Route path='board' element={<Board />} />
+              </Route>
+            </Route>
+            <Route path='/tasks/:taskId' element={<ShareTaskPage />} />
+            <Route path='*' element={<Navigate to="/login" />} />
+          </Routes>
+        </TaskProvider>
+        <ToastContainer />
+      </AuthProvider>
+    </>
+
   )
 }
 
