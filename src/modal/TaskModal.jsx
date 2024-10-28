@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styles from './taskmodal.module.css';
 import toast from 'react-hot-toast';
-import { fetchUserByEmail } from '../api/updateapi';
+import { fetchUserByEmail, getUser } from '../api/updateapi';
 import { TaskContext } from '../context/TaskContext';
 import AuthContext from '../context/AuthContext';
-import { Trash, Calendar } from 'lucide-react';
-import { RadioGroup } from '@headlessui/react';
+import { Trash } from 'lucide-react';
+
 
 const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
   const { addTask, majorTaskUpdate, tasks, setTasks } = useContext(TaskContext);
@@ -19,9 +19,27 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
   const [assignedTo, setAssignedTo] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isSaving, setIsSaving] = useState(false);
-  const [isCalendarOpen, setCalendarOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+
+  const [assignedUserId, setAssignedUserId] = useState(null);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const data = await getUser(); 
+        setUsers(data); 
+      } catch (error) {
+        console.error('Failed to load users:', error);
+      }
+    };
+    fetchUsers();
+  }, []);
+
+
+  useEffect(() => {
+
     if (actionType === 'edit' && existingTask) {
       setTitle(existingTask.title);
       setPriority(existingTask.priority);
@@ -58,6 +76,16 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
     setChecklists(updatedChecklists);
   };
 
+  const handleUserSelect = (user) => {
+    setAssignedTo(user.email);
+    setAssignedUserId(user._id);
+    setDropdownOpen(false);
+  };
+
+  const handleAssignUser = (user) => {
+    handleUserSelect(user);
+  };
+
   const handleSaveTask = async () => {
     setErrorMessage('');
 
@@ -72,17 +100,7 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
 
     try {
       setIsSaving(true);
-      let assignedUserId = null;
-      if (assignedTo) {
-        const assignedUser = await fetchUserByEmail(assignedTo);
-        if (!assignedUser) {
-          setErrorMessage('User does not exist');
-          setIsSaving(false);
-          return;
-        }
-        assignedUserId = assignedUser._id;
-      }
-
+      
       const taskData = {
         title,
         priority,
@@ -123,7 +141,7 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className={styles.inputField}
+            className={styles.titleInput}
             placeholder="Enter task title"
           />
         </label>
@@ -155,28 +173,36 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
           </div>
         </div>
 
-        {checklists.length > 0 && (
-          <label className={styles.AssignedUser}>
-            Assign to
-            <div className={styles.assignedInputWrapper}>
-              <input
-                type="email"
-                value={assignedTo}
-                onChange={(e) => setAssignedTo(e.target.value)}
-                className={styles.inputField}
-                placeholder="Enter user's email"
-              />
+        <label className={styles.AssignedUser}>
+          Assign to
+          <div className={styles.assignedInputWrapper}>
+            <div className={styles.dropdownContainer} onClick={() => setDropdownOpen(!dropdownOpen)}>
+              <div className={styles.selectedUser}>{assignedTo || 'Add a assignee'}</div>
+              {dropdownOpen && (
+                <div className={styles.dropdownMenu}>
+                  {users.map(user => (
+                    <div
+                      key={user._id}
+                      className={styles.dropdownItem}
+                      onClick={() => handleUserSelect(user)}
+                    >
+                      <div className={styles.userIcon}>
+                        {user.email.substring(0, 2).toUpperCase()}
+                      </div>
+                      <span>{user.email}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          </label>
-
-        )}
-
+          </div>
+        </label>
         <label className={styles.CheckTitle}>
           <span>
             Checklist {getChecklistCount()} <span style={{ color: 'red' }}>*</span>
           </span>
 
-   
+
           <div className={styles.CheckContainer}>
             {checklists.map((item, index) => (
               <div key={index} className={styles.checklistItem}>
@@ -201,11 +227,11 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
               </div>
             ))}
           </div>
-          
+
         </label>
         <button type="button" onClick={handleAddChecklist} className={styles.addBtn}>
-              + Add New
-            </button>
+          + Add New
+        </button>
         {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
 
         <div className={styles.bottom}>

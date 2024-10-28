@@ -21,8 +21,8 @@
   font-weight: 600;
 }
 
-.inputField {
-  width: 100%;
+.titleInput {
+  width: 95%;
   padding: 8px;
   margin: 8px 0;
   border: 1px solid #E2E2E2;
@@ -83,8 +83,9 @@
   flex-direction: row;
   gap: 15px;
   align-items: center;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
   font-weight: 600;
+  margin-top: 10px;
 }
 
 .assignedInputWrapper{
@@ -258,3 +259,75 @@
   background: #8DAAB9CC;
   border-radius: 3px;
 }
+
+
+.dropdownContainer {
+  position: relative;
+  width: 335px;
+  cursor: pointer;
+}
+
+.selectedUser {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  color: #9B959F;
+  font-weight: 400;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 120px; 
+  overflow-y: auto; 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  z-index: 1000; 
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dropdownMenu ::-webkit-scrollbar {
+  height: 4px;
+  width: 6px;
+  background: #8DAAB9CC;
+}
+
+.dropdownMenu::-webkit-scrollbar-track {
+  background: #D6EAF4;
+  border-radius: 3px;
+}
+
+.dropdownMenu::-webkit-scrollbar-thumb {
+  background: #8DAAB9CC;
+  border-radius: 3px;
+}
+
+.dropdownItem:hover {
+  background-color: #f0f0f0; 
+}
+
+.userIcon {
+  width: 25px;
+  height: 25px;
+  background: #FFEBEB;
+  color: black;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+

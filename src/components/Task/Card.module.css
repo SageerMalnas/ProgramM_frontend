@@ -70,6 +70,26 @@ h3:hover {
   z-index: 10;
 }
 
+
+.assignedUsersContainer {
+  display: flex; 
+  align-items: center; 
+  margin-left: 10px; 
+}
+
+.assignedUserIcon {
+  width: 20px; 
+  height: 20px;
+  background: #221f1f; 
+  color: black; 
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px; 
+  font-size: 12px; 
+}
+
 .menuItem {
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
@@ -112,6 +132,8 @@ h3:hover {
   display: flex;
   gap: 8px;
   padding: 8px;
+  justify-content: flex-end;
+  margin-left: auto;
 }
 
 .highPriorityDate {

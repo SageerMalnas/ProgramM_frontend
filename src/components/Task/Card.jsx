@@ -64,9 +64,10 @@ export default function Card({ task, toggleDisclosure }) {
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
+    
   }
 
-  const assignedUserIcon = task.assignedUsers?.map(user => (
+  const assignedUserIcon = task.assignedto?.map(user => (
     <span key={user} className={styles.assignedUserIcon} title={user}>
       {user.slice(0, 2).toUpperCase()}
     </span>
@@ -86,17 +87,20 @@ export default function Card({ task, toggleDisclosure }) {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.groupOne}>
-          <span className={`${styles.priorityIndicator} ${priorityClass}`}>
+      {/* <div className={styles.assignedUsersContainer}>
             {assignedUserIcon}
-            <li style={{fontSize: '7px'}}>
+          </div> */}
+        <div className={styles.groupOne}>
+          
+          <span className={`${styles.priorityIndicator} ${priorityClass}`}>
+            <li style={{ fontSize: '7px' }}>
               {task.priority.toUpperCase()} PRIORITY
             </li>
           </span>
 
           <div className={styles.menu}>
             <button className={styles.menuButton} onClick={toggleMenu}>
-              <MoreHorizontal size={18}/>
+              <MoreHorizontal size={18} />
             </button>
 
             {showMenu && (
