@@ -13,7 +13,7 @@ import { TaskProvider } from './context/TaskContext';
 import ProtectedRoute from './protectedRoute';
 import ShareTaskPage from './pages/ShareTaskPage/shareTaskPage'
 import { Toaster } from 'react-hot-toast';
-import NotFound from './pages/notFound';
+import NotFound from './pages/NotFound';
 
 
 
