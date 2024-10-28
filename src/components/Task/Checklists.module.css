@@ -1,6 +1,7 @@
 .head{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 5px;
 }
 
 .checklistItem {
@@ -18,6 +19,7 @@
     height: 1rem;
 } */
 
+
 .Arrowbutton {
     border: none;
     display: flex;
@@ -28,4 +30,8 @@
 
 .rotate {
     transform: rotate(180deg);
+}
+
+.head h4{
+    font-weight: 500;
 }

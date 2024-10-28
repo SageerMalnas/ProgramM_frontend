@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Checklists.module.css';
 import { MoreHorizontal, ChevronDown } from 'lucide-react';
+import { useEffect } from 'react';
 
 const CheckListItem = ({ list, onToggle }) => (
   <div className={styles.checklistItem}>
@@ -10,19 +11,23 @@ const CheckListItem = ({ list, onToggle }) => (
       checked={list.checked}
       onChange={(e) => onToggle(list._id, e.target.checked)}
     />
-    <span>{list.title}</span>
+    <span style={{ color: 'black' }} >{list.title}</span>
 
   </div>
 );
 
-const CheckLists = ({ task, toggleDisclosure, onTaskUpdate }) => {
+const CheckLists = ({ task, toggleDisclosure, onTaskUpdate}) => {
   const [lists, setLists] = useState(task.checklists);
-  const dones = lists.filter((list) => list.checked);
+  // const dones = lists.filter((list) => list.checked);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleChecklist = () => {
     setIsOpen((prev) => !prev);
   }
+
+  useEffect(() => {
+    setLists(task.checklists);
+  }, [task.checklists]);
 
   const handleToggleChecklist = (listId, checked) => {
     const updatedLists = lists.map((list) =>
@@ -36,19 +41,20 @@ const CheckLists = ({ task, toggleDisclosure, onTaskUpdate }) => {
     <div className={styles.container}>
       <div className={styles.head}>
         <h4>
-          Checklists ({dones.length}/{lists.length})
+          {/* Checklists ({dones.length}/{lists.length}) */}
+          Checklists ({lists.filter((list) => list.checked).length}/{lists.length})
         </h4>
         <button className={styles.Arrowbutton} onClick={toggleChecklist}>
-        <ChevronDown
-          className={isOpen && styles.rotate}
-        />
-      </button>
+          <ChevronDown size={10}
+            className={isOpen && styles.rotate}
+          />
+        </button>
       </div>
 
       {isOpen && (
         <div className={styles.lists}>
           {lists.map((list) => (
-            <CheckListItem key={list._id} list={list} onToggle={handleToggleChecklist} />
+            <CheckListItem key={list._id} list={list} onToggle={handleToggleChecklist}/>
           ))}
         </div>
       )}

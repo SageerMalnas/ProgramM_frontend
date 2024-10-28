@@ -5,49 +5,48 @@ import styles from './Card.module.css';
 import CheckLists from './Checklists';
 import TaskModal from '../../modal/TaskModal';
 import { TaskContext } from '../../context/TaskContext';
-import { format, isPast } from 'date-fns';
+import { format } from 'date-fns';
 import ConfirmationModal from '../../modal/ConfirmationModal';
-// import copyLink from './copyLink';
 import toast from 'react-hot-toast';
 
 
 const categories = [
   { id: 1, title: 'Backlog', value: 'backlog' },
   { id: 2, title: 'To do', value: 'todo' },
-  { id: 3, title: 'In progress', value: 'inProgress' },
+  { id: 3, title: 'progress', value: 'inProgress' },
   { id: 4, title: 'Done', value: 'done' },
 ];
 
-export default function Card({ task, toggleDisclosure}) {
+export default function Card({ task, toggleDisclosure }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [deletModalOpen, setDeleteModal] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
-  const { minorTaskUpdate, majorTaskUpdate} = useContext(TaskContext);
+  const { minorTaskUpdate, majorTaskUpdate } = useContext(TaskContext);
 
-  const toggleDeleteModal = () =>{
+  const toggleDeleteModal = () => {
     setDeleteModal(!deletModalOpen);
   }
-  
-  
-function copyLink(taskId) {
-  try {
-    const url = `${window.location.origin}/tasks/${taskId}`;
-    navigator.clipboard.writeText(url)
-      .then(() => {
-        console.log('URL copied:', url); 
-        toast.success('Link Copied');
-        window.location.href = url;
-      })
-      .catch((error) => {
-        console.error('Failed to copy URL:', error);
-        toast.error('Failed to copy URL');
-      });
-  } catch (error) {
-    console.error('Error in copyLink function:', error);
-    toast.error('Unexpected error occurred');
+
+
+  function copyLink(taskId) {
+    try {
+      const url = `${window.location.origin}/tasks/${taskId}`;
+      navigator.clipboard.writeText(url)
+        .then(() => {
+          console.log('URL copied:', url);
+          toast.success('Link Copied');
+          window.location.href = url;
+        })
+        .catch((error) => {
+          console.error('Failed to copy URL:', error);
+          toast.error('Failed to copy URL');
+        });
+    } catch (error) {
+      console.error('Error in copyLink function:', error);
+      toast.error('Unexpected error occurred');
+    }
   }
-}
 
   const handleShareClick = () => {
     console.log('Share clicked, task ID:', task._id); // Debugging output
@@ -67,9 +66,9 @@ function copyLink(taskId) {
     setShowMenu(!showMenu);
   }
 
-  const assignedUserInitials = task.assignedUsers?.map(user => (
-    <span key={user} className={styles.assignedUserInitial}>
-      {user[0].toUpperCase()}
+  const assignedUserIcon = task.assignedUsers?.map(user => (
+    <span key={user} className={styles.assignedUserIcon} title={user}>
+      {user.slice(0, 2).toUpperCase()}
     </span>
   ));
 
@@ -80,7 +79,7 @@ function copyLink(taskId) {
   // const isDueDatePast = task.dueDate && isPast(new Date(task.dueDate));
   const dateButtonClass = task.status === 'done'
     ? styles.completedDateButton
-    : task.priority ==='high'
+    : task.priority === 'high'
       ? styles.highPriorityDate
       : styles.DateButton;
 
@@ -89,14 +88,15 @@ function copyLink(taskId) {
       <div className={styles.container}>
         <div className={styles.groupOne}>
           <span className={`${styles.priorityIndicator} ${priorityClass}`}>
-            <li>
-            {assignedUserInitials} {task.priority.toUpperCase()} PRIORITY
+            {assignedUserIcon}
+            <li style={{fontSize: '7px'}}>
+              {task.priority.toUpperCase()} PRIORITY
             </li>
           </span>
 
           <div className={styles.menu}>
             <button className={styles.menuButton} onClick={toggleMenu}>
-              <MoreHorizontal />
+              <MoreHorizontal size={18}/>
             </button>
 
             {showMenu && (
@@ -115,10 +115,11 @@ function copyLink(taskId) {
           </div>
         </div>
         {deletModalOpen && (
-          <ConfirmationModal toggleModal={toggleDeleteModal} actionType="deleteTask" taskId={task._id}/>
-        ) }
+          <ConfirmationModal toggleModal={toggleDeleteModal} actionType="deleteTask" taskId={task._id} />
+        )}
 
-        <h3 >{task.title}</h3>
+        {/* <h3 >{task.title}</h3> */}
+        <h3 className={styles.title} title={task.title}>{task.title}</h3>
         {/* <h3 data-fulltitle={task.title}>{task.title}</h3> */}
         <div>
           <CheckLists
@@ -129,23 +130,24 @@ function copyLink(taskId) {
           />
         </div>
         <div className={styles.categoryBadges}>
-          <button className={dateButtonClass}>
-            {task.dueDate ? format(new Date(task.dueDate), 'MMM do') : ''}
-          </button>
-          
-          {categories.map((category) =>
-            category.value !== task.status ? (
-              <button
-                key={category.id}
-                className={styles.categoryButton}
-                onClick={() => handleStatusChange(category.value)}
-              >
-                {category.title}
-              </button>
-            ) : null
+          {task.dueDate && (
+            <button className={dateButtonClass}>
+              {format(new Date(task.dueDate), 'MMM do')}
+            </button>
           )}
-         
-         
+          <div className={styles.statusButtons}>
+            {categories.map((category) =>
+              category.value !== task.status ? (
+                <button
+                  key={category.id}
+                  className={styles.categoryButton}
+                  onClick={() => handleStatusChange(category.value)}
+                >
+                  {category.title.toUpperCase()}
+                </button>
+              ) : null
+            )}
+          </div>
         </div>
       </div>
 
@@ -153,7 +155,7 @@ function copyLink(taskId) {
         <TaskModal
           isOpen={showEditModal}
           onClose={() => setShowEditModal(false)}
-          actionType = 'edit'
+          actionType='edit'
           existingTask={task}
         />
       )}

@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { fetchUserByEmail } from '../api/updateapi';
 import { TaskContext } from '../context/TaskContext';
 import AuthContext from '../context/AuthContext';
-import { Trash2 } from 'lucide-react';
+import { Trash, Calendar } from 'lucide-react';
 import { RadioGroup } from '@headlessui/react';
 
 const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
@@ -19,6 +19,7 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
   const [assignedTo, setAssignedTo] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isSaving, setIsSaving] = useState(false);
+  const [isCalendarOpen, setCalendarOpen] = useState(false);
 
   useEffect(() => {
     if (actionType === 'edit' && existingTask) {
@@ -36,6 +37,11 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
     setChecklists(updatedChecklists);
   };
 
+  const getChecklistCount = () => {
+    const completedCount = checklists.filter(item => item.checked).length;
+    return `(${completedCount}/${checklists.length})`;
+  };
+
   const handleAddChecklist = () => {
     setChecklists([...checklists, { title: '', checked: false }]);
   };
@@ -43,6 +49,12 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
   const handleRemoveChecklist = (index) => {
     const updatedChecklists = [...checklists];
     updatedChecklists.splice(index, 1);
+    setChecklists(updatedChecklists);
+  };
+
+  const handleToggleChecklist = (index) => {
+    const updatedChecklists = [...checklists];
+    updatedChecklists[index].checked = !updatedChecklists[index].checked;
     setChecklists(updatedChecklists);
   };
 
@@ -106,7 +118,7 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
       <div className={styles.modalContent}>
 
         <label>
-          Title <span>*</span>
+          Title <span style={{ color: 'red' }}>*</span>
           <input
             type="text"
             value={title}
@@ -120,7 +132,6 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
           <label>
             Select Priority <span style={{ color: 'red' }}>*</span>
           </label>
-
           <div className={styles.radioGroup}>
             {['high', 'moderate', 'low'].map((level) => (
               <div
@@ -144,59 +155,83 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
           </div>
         </div>
 
+        {checklists.length > 0 && (
+          <label className={styles.AssignedUser}>
+            Assign to
+            <div className={styles.assignedInputWrapper}>
+              <input
+                type="email"
+                value={assignedTo}
+                onChange={(e) => setAssignedTo(e.target.value)}
+                className={styles.inputField}
+                placeholder="Enter user's email"
+              />
+            </div>
+          </label>
 
-        <label>
-          Assign to:
-          <input
-            type="email"
-            value={assignedTo}
-            onChange={(e) => setAssignedTo(e.target.value)}
-            className={styles.inputField}
-            placeholder="Enter user's email"
-          />
-        </label>
+        )}
 
-        <label>
-          Checklist  <span>*</span>
-          <div>
+        <label className={styles.CheckTitle}>
+          <span>
+            Checklist {getChecklistCount()} <span style={{ color: 'red' }}>*</span>
+          </span>
+
+   
+          <div className={styles.CheckContainer}>
             {checklists.map((item, index) => (
               <div key={index} className={styles.checklistItem}>
+                <input
+                  type="checkbox"
+                  checked={item.checked}
+                  onChange={() => handleToggleChecklist(index)}
+                />
                 <input
                   type="text"
                   value={item.title}
                   onChange={(e) => handleChecklistChange(index, e.target.value)}
-                  placeholder="Checklist item"
+                  placeholder="enter"
                 />
-                <button type="button" onClick={() => handleRemoveChecklist(index)} className={styles.removeBtn}>
-                  <Trash2 />
+                <button
+                  type="button"
+                  onClick={() => handleRemoveChecklist(index)}
+                  className={styles.removeBtn}
+                >
+                  <Trash size={14} />
                 </button>
               </div>
             ))}
-            <button type="button" onClick={handleAddChecklist} className={styles.addBtn}>
+          </div>
+          
+        </label>
+        <button type="button" onClick={handleAddChecklist} className={styles.addBtn}>
               + Add New
             </button>
-          </div>
-        </label>
-
-        <label>
-          Select Due Date
-          <input
-            type="date"
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-            className={styles.inputField}
-          />
-        </label>
-
         {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
 
-        <div className={styles.modalActions}>
-          <button onClick={onClose} className={styles.cancelBtn}>
-            Cancel
-          </button>
-          <button onClick={handleSaveTask} className={styles.saveBtn} disabled={isSaving}>
-            {isSaving ? 'Saving...' : actionType === 'edit' ? 'Update Task' : 'Save Task'}
-          </button>
+        <div className={styles.bottom}>
+          <div className={styles.calendarOverlay}>
+            <div
+              className={`${styles.dateDisplay} ${!dueDate && styles.placeholder}`}
+              onClick={() => document.getElementById('dateInput').showPicker()}
+            >
+              {dueDate ? dueDate : 'Select Due Date'}
+            </div>
+            <input
+              id="dateInput"
+              type="date"
+              value={dueDate}
+              onChange={(e) => setDueDate(e.target.value)}
+              className={styles.dateInputHidden}
+            />
+          </div>
+          <div className={styles.modalActions}>
+            <button onClick={onClose} className={styles.cancelBtn}>
+              Cancel
+            </button>
+            <button onClick={handleSaveTask} className={styles.saveBtn} disabled={isSaving}>
+              {isSaving ? 'Saving...' : actionType === 'edit' ? 'Update Task' : 'Save Task'}
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -16,6 +16,7 @@ export default function TaskContainerPage() {
   const { tasks, isLoading } = useContext(TaskContext);
   const [openDisclosures, setOpenDisclosures] = useState([]);
   const [isTaskModalOpen, setTaskModalOpen] = useState(false);
+  const [closeAllChecklists, setCloseAllChecklists] = useState(false);
 
   const toggleDisclosure = (id) => {
     setOpenDisclosures((prev) =>
@@ -24,6 +25,7 @@ export default function TaskContainerPage() {
   };
 
   const closeAllDisclosures = () => {
+    setCloseAllChecklists(prev => !prev);
     if (openDisclosures.length > 0) {
       setOpenDisclosures([]);
     }
@@ -63,6 +65,7 @@ export default function TaskContainerPage() {
                     task={task}
                     isOpen={openDisclosures.includes(task._id)}
                     toggleDisclosure={() => toggleDisclosure(task._id)}
+                    
                   />
                 ))}
               {tasks?.filter((task) => task.status === category.value).length === 0 && (
