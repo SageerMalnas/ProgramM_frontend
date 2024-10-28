@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import styles from './styles/login.module.css';

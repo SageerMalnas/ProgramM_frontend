@@ -1,12 +1,16 @@
-import { createContext, useState } from "react";
+import { createContext, useState ,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import authApi from "../api/authApi";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
     const navigate = useNavigate();
+    useEffect(() => {
+        if (user) localStorage.setItem("user", JSON.stringify(user));
+        else localStorage.removeItem("user");
+      }, [user]);
 
     const register = async (userData) => {
         const { password, confirmPassword } = userData;
@@ -48,7 +52,7 @@ export const AuthProvider = ({ children }) => {
     
     
     return (
-        <AuthContext.Provider value={{ user, register, login, logout }}>
+        <AuthContext.Provider value={{ user, register, login, logout,setUser }}>
             {children}
         </AuthContext.Provider>
     );

@@ -88,26 +88,38 @@ export function TaskProvider({ children }) {
   );
 
 
+  // const addTask = useCallback(
+  //   async (task) => {
+  //     try {
+  //       const newTask = await addTaskToDb(task, token);
+  //       setTasks((draft) => {
+  //         draft.push(newTask);
+  //       });
+  //     } catch (error) {
+  //       toast.error(error.message);
+  //     }
+  //   },
+  //   [setTasks, token]
+  // );
+
   const addTask = useCallback(
     async (task) => {
       try {
-        const newTask = await addTaskToDb(task, token);
-        setTasks((draft) => {
-          draft.push(newTask);
-        });
+        await addTaskToDb(task, token);
+        await fetchTasks(value, token); 
       } catch (error) {
         toast.error(error.message);
       }
     },
-    [setTasks, token]
+    [fetchTasks, token, value]
   );
-
 
   const deleteTask = useCallback(
     async (taskId) => {
       try {
         await deleteTaskFromDb(taskId, token);
         setTasks((draft) => draft.filter((task) => task._id !== taskId));
+        toast.success("Deleted Successfully")
       } catch (error) {
         toast.error(error.message);
       }

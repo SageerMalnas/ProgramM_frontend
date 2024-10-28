@@ -13,6 +13,7 @@ import { TaskProvider } from './context/TaskContext';
 import ProtectedRoute from './protectedRoute';
 import ShareTaskPage from './pages/ShareTaskPage/shareTaskPage'
 import { Toaster } from 'react-hot-toast';
+import NotFound from './pages/notFound';
 
 
 
@@ -38,7 +39,7 @@ function App() {
               </Route>
             </Route>
             <Route path='/tasks/:taskId' element={<ShareTaskPage />} />
-            <Route path='*' element={<Navigate to="/login" />} />
+            <Route path='*' element={<NotFound/>} />
           </Routes>
         </TaskProvider>
         <ToastContainer />

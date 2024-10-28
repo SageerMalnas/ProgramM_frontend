@@ -97,12 +97,12 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
         // setTasks((prevTasks) =>
         //   prevTasks.map((task) => (task._id === existingTask._id ? updatedTask : task))
         // );
-        toast.success('Task updated successfully');
+        toast.success('Updated successfully');
       } else {
         await addTask(taskData);
         // Add the new task to the context immediately
         // setTasks((prevTasks) => [...prevTasks, newTask]);
-        toast.success('Task added successfully');
+        toast.success('Added successfully');
       }
 
       onClose();

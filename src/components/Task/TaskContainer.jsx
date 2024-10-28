@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 import { Plus, CopyMinus } from 'lucide-react';
 import Card from './Card';
@@ -23,7 +23,7 @@ export default function TaskContainerPage() {
       prev.includes(id) ? prev.filter((d) => d !== id) : [...prev, id]
     );
   };
-
+  
   const closeAllDisclosures = () => {
     setCloseAllChecklists(prev => !prev);
     if (openDisclosures.length > 0) {
@@ -70,7 +70,7 @@ export default function TaskContainerPage() {
                 ))}
               {tasks?.filter((task) => task.status === category.value).length === 0 && (
                 <div className={styles.emptyCard}>
-                  <span>No tasks</span>
+                  
                 </div>
               )}
             </div>
