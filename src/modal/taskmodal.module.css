@@ -160,11 +160,12 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 .calendarOverlay {
   position: relative;
   display: inline-block;
-  margin-top: 20px;
+  margin-top: 2px;
   width: 120px;
 }
 
@@ -181,6 +182,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
+  height: 12px;
 }
 
 .placeholder {
@@ -207,10 +210,17 @@
   border-radius: 12px;
   font-weight: 550;
   width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
 }
 
 .saveBtn {
   background-color: #17A2B8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #fff;
   border: none;
   padding: 10px;
@@ -219,6 +229,7 @@
   font-size: 12px;
   font-weight: 500;
   width: 100px;
+  height: 30px;
 }
 
 .modalActions {
@@ -293,29 +304,27 @@
   display: flex;
   align-items: center;
   padding: 10px;
-  cursor: pointer;
+  cursor:auto ;
   transition: background-color 0.2s;
+  justify-content: space-between;
 }
 
-.dropdownMenu ::-webkit-scrollbar {
+.dropdownItem ::-webkit-scrollbar {
   height: 4px;
   width: 6px;
   background: #8DAAB9CC;
 }
 
-.dropdownMenu::-webkit-scrollbar-track {
+.dropdownItem::-webkit-scrollbar-track {
   background: #D6EAF4;
   border-radius: 3px;
 }
 
-.dropdownMenu::-webkit-scrollbar-thumb {
+.dropdownItem::-webkit-scrollbar-thumb {
   background: #8DAAB9CC;
   border-radius: 3px;
 }
 
-.dropdownItem:hover {
-  background-color: #f0f0f0; 
-}
 
 .userIcon {
   width: 25px;
@@ -330,3 +339,19 @@
   font-weight: bold;
 }
 
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 4px; 
+}
+
+.AssignBtn {
+  padding: 3px;
+  background: white;
+  border: 1px solid #E2E2E2;
+  color: #767575;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100px;
+  text-align: center;
+}

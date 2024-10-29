@@ -46,7 +46,7 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
       setChecklists(existingTask.checklists.length > 0 ? existingTask.checklists : ['']);
       setDueDate(existingTask.dueDate ? new Date(existingTask.dueDate).toISOString().split('T')[0] : '');
 
-      
+
       const assignedUser = existingTask.assignedTo && existingTask.assignedTo.length > 0 ? existingTask.assignedTo[0] : null;
       setAssignedTo(assignedUser ? assignedUser.email : '');
       setAssignedUserId(assignedUser ? assignedUser._id : null);
@@ -185,20 +185,26 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
             <div className={styles.dropdownContainer} onClick={() => setDropdownOpen(!dropdownOpen)}>
               <div className={styles.selectedUser}>{assignedTo || 'Add a assignee'}</div>
               {dropdownOpen && (
+
                 <div className={styles.dropdownMenu}>
                   {users.map(user => (
-                    <div
-                      key={user._id}
-                      className={styles.dropdownItem}
-                      onClick={() => handleUserSelect(user)}
-                    >
-                      <div className={styles.userIcon}>
-                        {user.email.substring(0, 2).toUpperCase()}
+                    <div key={user._id} className={styles.dropdownItem}>
+                      <div className={styles.userInfo}>
+                        <div className={styles.userIcon}>
+                          {user.email.substring(0, 2).toUpperCase()}
+                        </div>
+                        <span>{user.email}</span>
                       </div>
-                      <span>{user.email}</span>
+                      <div
+                        className={styles.AssignBtn}
+                        onClick={() => handleUserSelect(user)}
+                      >
+                        Assign
+                      </div>
                     </div>
                   ))}
                 </div>
+
               )}
             </div>
           </div>
