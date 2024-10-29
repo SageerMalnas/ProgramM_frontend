@@ -179,6 +179,7 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
           </div>
         </div>
 
+        
         <label className={styles.AssignedUser}>
           Assign to
           <div className={styles.assignedInputWrapper}>

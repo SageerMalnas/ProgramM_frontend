@@ -50,13 +50,9 @@ export default function Card({ task, isOpen, toggleDisclosure }) {
   }
 
   const handleShareClick = () => {
-    console.log('Share clicked, task ID:', task._id); 
-    copyLink(task._id); 
-    setShowMenu(false); 
-  };
-  const handleTaskUpdate = async (updates) => {
-    await majorTaskUpdate(task._id, updates);
-    setShowEditModal(false);
+    console.log('Share clicked, task ID:', task._id);
+    copyLink(task._id);
+    setShowMenu(false);
   };
 
   const handleStatusChange = async (newStatus) => {
@@ -65,14 +61,18 @@ export default function Card({ task, isOpen, toggleDisclosure }) {
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
-    
+
   }
 
-  const assignedUserIcon = task.assignedto?.map(user => (
-    <span key={user} className={styles.assignedUserIcon} title={user}>
-      {user.slice(0, 2).toUpperCase()}
-    </span>
-  ));
+  const assignedUserIcon = Array.isArray(task.assignedTo) && task.assignedTo.length > 0
+    ? task.assignedTo.map(user => (
+      <span key={user._id} className={styles.assignedUserIcon} title={user.email}>
+        {user.email.slice(0, 2).toUpperCase()}
+      </span>
+    ))
+    : null;
+
+  console.log(assignedUserIcon)
 
   const priorityClass = task.priority === 'low' ? styles.lowPriority :
     task.priority === 'moderate' ? styles.moderatePriority :
@@ -82,28 +82,29 @@ export default function Card({ task, isOpen, toggleDisclosure }) {
   const dateButtonClass = task.status === 'done'
     ? styles.completedDateButton
     : isDueDatePast
-    ? styles.highPriorityDate
-    : task.priority === 'high'
       ? styles.highPriorityDate
-      : styles.DateButton;
+      : task.priority === 'high'
+        ? styles.highPriorityDate
+        : styles.DateButton;
 
   return (
     <>
       <div className={styles.container}>
-      {/* <div className={styles.assignedUsersContainer}>
-            {assignedUserIcon}
-          </div> */}
         <div className={styles.groupOne}>
-          
           <span className={`${styles.priorityIndicator} ${priorityClass}`}>
-            <li style={{ fontSize: '7px' }}>
+            <li style={{ fontSize: '6px' }}>
               {task.priority.toUpperCase()} PRIORITY
             </li>
+            {assignedUserIcon?.length > 0 && (
+            <div className={styles.assignedUsersContainer}>
+              {assignedUserIcon}
+            </div>
+          )}
           </span>
-
+          
           <div className={styles.menu}>
             <button className={styles.menuButton} onClick={toggleMenu}>
-              <MoreHorizontal size={18} />
+              <MoreHorizontal size={16} />
             </button>
 
             {showMenu && (
