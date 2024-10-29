@@ -8,6 +8,7 @@ import { TaskContext } from '../../context/TaskContext';
 import { format } from 'date-fns';
 import ConfirmationModal from '../../modal/ConfirmationModal';
 import toast from 'react-hot-toast';
+import { isPast } from 'date-fns';
 
 
 const categories = [
@@ -77,9 +78,11 @@ export default function Card({ task, isOpen, toggleDisclosure }) {
     task.priority === 'moderate' ? styles.moderatePriority :
       styles.highPriority;
 
-  // const isDueDatePast = task.dueDate && isPast(new Date(task.dueDate));
+  const isDueDatePast = task.dueDate && isPast(new Date(task.dueDate));
   const dateButtonClass = task.status === 'done'
     ? styles.completedDateButton
+    : isDueDatePast
+    ? styles.highPriorityDate
     : task.priority === 'high'
       ? styles.highPriorityDate
       : styles.DateButton;

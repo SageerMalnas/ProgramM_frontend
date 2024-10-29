@@ -26,7 +26,7 @@
   padding: 8px;
   margin: 8px 0;
   border: 1px solid #E2E2E2;
-  color: #9B959F;
+  color: black;
   border-radius: 4px;
   font-size: 10px;
   font-weight: 500;
@@ -100,7 +100,7 @@
 }
 
 .CheckContainer {
-  max-height: 150px;
+  max-height: 120px;
   overflow-y: auto;
   padding-top: 8px; 
   border-top: 1px solid #ddd;
@@ -329,5 +329,4 @@
   margin-right: 10px;
   font-weight: bold;
 }
-
 

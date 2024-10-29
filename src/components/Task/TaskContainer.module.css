@@ -1,6 +1,6 @@
 .container {
   flex: 1;
-  padding: 20px;
+  padding: 3px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -18,7 +18,7 @@
   min-width: 250px;
   background-color: #EEF2F5;
   border-radius: 8px;
-  padding: 1rem;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   gap: 1rem;

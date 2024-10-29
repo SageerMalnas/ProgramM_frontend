@@ -6,7 +6,7 @@ export const fetchUserByEmail = async (email) =>{
         const response  = await axios.get(`${API_URL}/api/user/${email}`);
         return response.data.data.info;
     } catch (error) {
-        console.log('Error fetching user by email: ',error);
+        // console.log('Error fetching user by email: ',error);
         throw error;
     }
 }
@@ -14,10 +14,10 @@ export const fetchUserByEmail = async (email) =>{
 export const getUser  = async() =>{
     try {
         const response = await axios.get(`${API_URL}/api/user`);
-        console.log('Users:', response.data.data.users);
+        // console.log('Users:', response.data.data.users);
         return response.data.data.users; 
       } catch (error) {
-        console.error('Error fetching users:', error);
+        // console.error('Error fetching users:', error);
         throw error; 
       }
 }

@@ -28,8 +28,8 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const data = await getUser(); 
-        setUsers(data); 
+        const data = await getUser();
+        setUsers(data);
       } catch (error) {
         console.error('Failed to load users:', error);
       }
@@ -45,7 +45,13 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
       setPriority(existingTask.priority);
       setChecklists(existingTask.checklists.length > 0 ? existingTask.checklists : ['']);
       setDueDate(existingTask.dueDate ? new Date(existingTask.dueDate).toISOString().split('T')[0] : '');
-      setAssignedTo(existingTask.assignedTo?.length > 0 ? existingTask.assignedTo[0].email : '');
+
+      
+      const assignedUser = existingTask.assignedTo && existingTask.assignedTo.length > 0 ? existingTask.assignedTo[0] : null;
+      setAssignedTo(assignedUser ? assignedUser.email : '');
+      setAssignedUserId(assignedUser ? assignedUser._id : null);
+      // setAssignedTo(existingTask.assignedTo?.length > 0 ? existingTask.assignedTo[0].email : '');
+      // setAssignedUserId(existingTask.assignedTo?.[0]?._id || null);
     }
   }, [actionType, existingTask]);
 
@@ -100,13 +106,13 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
 
     try {
       setIsSaving(true);
-      
+
       const taskData = {
         title,
         priority,
         checklists,
         dueDate,
-        assignedTo: assignedUserId,
+        assignedTo: assignedUserId || null,
         createdBy: user._id,
       };
 

@@ -51,7 +51,7 @@ export default function TaskContainerPage() {
               <h3>{category.title}</h3>
               <div className={styles.icons}>
                 {category.title === 'To do' && (
-                  <Plus size={20} color="#767575" onClick={toggleTaskModal} />
+                  <Plus size={20} color="#000000" onClick={toggleTaskModal} />
                 )}
                 <CopyMinus
                   size={20}
