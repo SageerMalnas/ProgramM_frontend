@@ -24,6 +24,18 @@ export default function Settings() {
   const onSubmit = async (data) => {
 
     try {
+
+      const fieldsToUpdate = [
+        data.name !== user.name,
+        data.email !== user.email,
+        data.newPassword && data.oldPassword && data.newPassword !== data.oldPassword
+      ].filter(Boolean); 
+      
+      if (fieldsToUpdate.length > 1) {
+        toast.error("You can edit only one field at a time.");
+        return;
+      }
+
       if (data.newPassword && !data.oldPassword) {
         setError("oldPassword", { message: "Old password is required to update the password" });
         return;
@@ -34,10 +46,11 @@ export default function Settings() {
         return;
       }
 
-      //   if (data.oldPassword !== user.oldPassword) {
-      //     setError("oldPassword", { message: "Old password is not correct" });
-      //     return;
-      //   }
+      if (data.newPassword && data.oldPassword === data.newPassword) {
+        setError("newPassword", { message: "Old and new passwords cannot be the same" });
+        return;
+      }
+
       if (
         data.name === user.name &&
         data.email === user.email &&
