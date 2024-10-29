@@ -14,21 +14,26 @@ const categories = [
 
 export default function TaskContainerPage() {
   const { tasks, isLoading } = useContext(TaskContext);
-  const [openDisclosures, setOpenDisclosures] = useState([]);
   const [isTaskModalOpen, setTaskModalOpen] = useState(false);
-  const [closeAllChecklists, setCloseAllChecklists] = useState(false);
+  const [isOpenState, setIsOpenState] = useState({});
+
 
   const toggleDisclosure = (id) => {
-    setOpenDisclosures((prev) =>
-      prev.includes(id) ? prev.filter((d) => d !== id) : [...prev, id]
-    );
+    setIsOpenState((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
   };
-  
-  const closeAllDisclosures = () => {
-    setCloseAllChecklists(prev => !prev);
-    if (openDisclosures.length > 0) {
-      setOpenDisclosures([]);
-    }
+
+  const closeCategoryChecklists = (category) => {
+    const updatedState = { ...isOpenState };
+
+    tasks.filter((task) => task.status === category)
+      .forEach((task) => {
+        delete updatedState[task._id];
+      });
+
+    setIsOpenState(updatedState);
   };
 
   const toggleTaskModal = () => setTaskModalOpen((prev) => !prev);
@@ -50,8 +55,14 @@ export default function TaskContainerPage() {
                 )}
                 <CopyMinus
                   size={20}
-                  color={openDisclosures.length ? '#17a2b8' : '#767575'}
-                  onClick={closeAllDisclosures}
+                  color={Object.keys(isOpenState).some((key) => tasks.find(
+                    (task) => task._id === key && task.status === category.value
+                  )
+                  )
+                    ? '#17a2b8'
+                    : '#767575'}
+
+                  onClick={() => closeCategoryChecklists(category.value)}
                 />
               </div>
             </div>
@@ -63,16 +74,13 @@ export default function TaskContainerPage() {
                   <Card
                     key={task._id}
                     task={task}
-                    isOpen={openDisclosures.includes(task._id)}
+                    // isOpen={openDisclosures.includes(task._id)}
+                    isOpen={isOpenState[task._id] || false}
                     toggleDisclosure={() => toggleDisclosure(task._id)}
-                    
+
                   />
                 ))}
-              {tasks?.filter((task) => task.status === category.value).length === 0 && (
-                <div className={styles.emptyCard}>
-                  
-                </div>
-              )}
+
             </div>
           </div>
         ))}

@@ -17,7 +17,7 @@ const categories = [
   { id: 4, title: 'Done', value: 'done' },
 ];
 
-export default function Card({ task, toggleDisclosure }) {
+export default function Card({ task, isOpen, toggleDisclosure }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [deletModalOpen, setDeleteModal] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -49,9 +49,9 @@ export default function Card({ task, toggleDisclosure }) {
   }
 
   const handleShareClick = () => {
-    console.log('Share clicked, task ID:', task._id); // Debugging output
-    copyLink(task._id); // Call the copyLink function
-    setShowMenu(false); // Hide menu after copying
+    console.log('Share clicked, task ID:', task._id); 
+    copyLink(task._id); 
+    setShowMenu(false); 
   };
   const handleTaskUpdate = async (updates) => {
     await majorTaskUpdate(task._id, updates);
@@ -127,7 +127,7 @@ export default function Card({ task, toggleDisclosure }) {
         {/* <h3 data-fulltitle={task.title}>{task.title}</h3> */}
         <div>
           <CheckLists
-            // isOpen={isOpen}
+            isOpen={isOpen}
             toggleDisclosure={toggleDisclosure}
             task={task}
             onTaskUpdate={minorTaskUpdate}

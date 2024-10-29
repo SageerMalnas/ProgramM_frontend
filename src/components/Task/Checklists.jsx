@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Checklists.module.css';
-import { MoreHorizontal, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useEffect } from 'react';
 
 const CheckListItem = ({ list, onToggle }) => (
@@ -16,15 +16,9 @@ const CheckListItem = ({ list, onToggle }) => (
   </div>
 );
 
-const CheckLists = ({ task, toggleDisclosure, onTaskUpdate}) => {
+const CheckLists = ({ task,isOpen, toggleDisclosure, onTaskUpdate}) => {
   const [lists, setLists] = useState(task.checklists);
-  // const dones = lists.filter((list) => list.checked);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleChecklist = () => {
-    setIsOpen((prev) => !prev);
-  }
-
+ 
   useEffect(() => {
     setLists(task.checklists);
   }, [task.checklists]);
@@ -44,9 +38,9 @@ const CheckLists = ({ task, toggleDisclosure, onTaskUpdate}) => {
           {/* Checklists ({dones.length}/{lists.length}) */}
           Checklists ({lists.filter((list) => list.checked).length}/{lists.length})
         </h4>
-        <button className={styles.Arrowbutton} onClick={toggleChecklist}>
+        <button className={styles.Arrowbutton} onClick={toggleDisclosure}>
           <ChevronDown size={10}
-            className={isOpen && styles.rotate}
+            className={isOpen ? styles.rotate : ''}
           />
         </button>
       </div>
