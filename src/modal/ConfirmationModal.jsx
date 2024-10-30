@@ -31,8 +31,8 @@ const ConfirmationModal = ({ toggleModal, actionType, taskId }) => {
             <div className={styles.modalContent}>
                 <p>
                     {actionType === 'logout'
-                        ? 'Are you sure you want to logout?'
-                        : 'Are you sure you want to delete this task?'}
+                        ? 'Are you sure you want to Logout?'
+                        : 'Are you sure you want to Delete?'}
                 </p>
 
                 <div className={styles.buttonContainer}>

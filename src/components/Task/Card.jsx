@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { MoreHorizontal, ChevronDown } from 'lucide-react';
 import PropTypes from 'prop-types';
 import styles from './Card.module.css';
@@ -22,6 +22,7 @@ export default function Card({ task, isOpen, toggleDisclosure }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [deletModalOpen, setDeleteModal] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef(null);
 
   const { minorTaskUpdate, majorTaskUpdate } = useContext(TaskContext);
 
@@ -64,6 +65,17 @@ export default function Card({ task, isOpen, toggleDisclosure }) {
 
   }
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+
   const assignedUserIcon = Array.isArray(task.assignedTo) && task.assignedTo.length > 0
     ? task.assignedTo.map(user => (
       <span key={user._id} className={styles.assignedUserIcon} title={user.email}>
@@ -95,19 +107,19 @@ export default function Card({ task, isOpen, toggleDisclosure }) {
               {task.priority.toUpperCase()} PRIORITY
             </li>
             {assignedUserIcon?.length > 0 && (
-            <div className={styles.assignedUsersContainer}>
-              {assignedUserIcon}
-            </div>
-          )}
+              <div className={styles.assignedUsersContainer}>
+                {assignedUserIcon}
+              </div>
+            )}
           </span>
-          
+
           <div className={styles.menu}>
             <button className={styles.menuButton} onClick={toggleMenu}>
               <MoreHorizontal size={16} />
             </button>
 
             {showMenu && (
-              <div className={`${styles.menuItems} ${showMenu ? 'visible' : ''}`}>
+              <div ref={menuRef} className={`${styles.menuItems} ${showMenu ? 'visible' : ''}`}>
                 <div className={styles.menuItem} onClick={() => { setShowEditModal(true), setShowMenu(false) }}>
                   Edit
                 </div>

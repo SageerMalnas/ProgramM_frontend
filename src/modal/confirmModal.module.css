@@ -22,6 +22,10 @@
 
 }
 
+.modalContent p{
+    font-weight: 600;
+}
+
 .buttonContainer {
     margin-top: 20px;
     display: flex;

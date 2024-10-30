@@ -44,6 +44,8 @@
   cursor: pointer;
   color: #2D3748;
   font-size: xx-small;
+  margin-top: 20px;
+  font-weight: 500;
 }
 
 .selectContainer {

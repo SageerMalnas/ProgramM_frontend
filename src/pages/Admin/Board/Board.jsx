@@ -60,7 +60,7 @@ export default function Board() {
       <div className={styles.groupTwo}>
         <div className={styles.heading}>
         <h2>Board</h2>
-        <button onClick={() => setIsModalOpen(true)}><UsersRound size={10} style={{color: '#707070'}}/> Add User</button>
+        <button onClick={() => setIsModalOpen(true)}><UsersRound size={10} style={{color: '#707070'}}/> Add People</button>
         </div>
         
         <div className={styles.selectContainer}>
