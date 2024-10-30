@@ -3,9 +3,8 @@ import AuthContext from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from './styles/register.module.css'; 
-import { FaUser, FaEnvelope, FaLock } from "react-icons/fa"; 
-import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import GroupImage from '../../assets/Group.png'
+import { Eye, LockKeyhole, Mail, EyeOff , User} from 'lucide-react';
 
 const Register = () => {
     const { register } = useContext(AuthContext);
@@ -48,53 +47,53 @@ const Register = () => {
                 <h2 style={{ display: "flex", justifyContent: "center" }}>Register</h2>
                 <form onSubmit={handleSubmit} className={styles.form}>
                     <div className={styles.inputGroup}>
-                        <FaUser className={styles.icon} />
+                        <User size={18}  className={styles.icon} />
                         <input
                             type="text"
                             name="name"
                             placeholder="Name"
                             value={form.name}
                             onChange={handleChange}
-                            required
+                            
                         />
                     </div>
                     <div className={styles.inputGroup}>
-                        <FaEnvelope className={styles.icon} />
+                        <Mail size={18} className={styles.icon} />
                         <input
                             type="email"
                             name="email"
                             placeholder="Email"
                             value={form.email}
                             onChange={handleChange}
-                            required
+                            
                         />
                     </div>
                     <div className={styles.inputGroup}>
-                        <FaLock className={styles.icon} />
+                        <LockKeyhole size={18} className={styles.icon} />
                         <input
                             type={showPassword ? "text" : "password"}
                             name="password"
                             placeholder="Password"
                             value={form.password}
                             onChange={handleChange}
-                            required
+                            
                         />
                         <div className={styles.toggleIcon} onClick={togglePasswordVisibility}>
-                            {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
+                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                         </div>
                     </div>
                     <div className={styles.inputGroup}>
-                        <FaLock className={styles.icon} />
+                        <LockKeyhole size={18} className={styles.icon} />
                         <input
                             type={showPassword ? "text" : "password"}
                             name="confirmPassword"
                             placeholder="Confirm Password"
                             value={form.confirmPassword}
                             onChange={handleChange}
-                            required
+                            
                         />
                         <div className={styles.toggleIcon} onClick={togglePasswordVisibility}>
-                            {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
+                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                         </div>
                     </div>
                     <button type="submit" className={styles.RegBtn}>Register</button>

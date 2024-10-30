@@ -106,7 +106,7 @@ export default function Settings() {
               placeholder="Name"
               {...register('name')}
             />
-            <User className={styles.icon} />
+            <User size={18} className={styles.icon} />
           </div>
           {errors.name && <p className={styles.error}>{errors.name.message}</p>}
         </div>
@@ -120,14 +120,14 @@ export default function Settings() {
               placeholder="Update Email"
               {...register('email')}
             />
-            <Mail className={styles.icon} />
+            <Mail size={18} className={styles.icon} />
           </div>
           {errors.email && <p className={styles.error}>{errors.email.message}</p>}
         </div>
 
         <div className={styles.formGroup}>
           <div className={styles.inputContainer}>
-            <Lock className={styles.icon} />
+            <Lock size={18} className={styles.icon} />
             <input
               id="oldPassword"
               type={showOldPassword ? 'text' : 'password'}
@@ -135,9 +135,9 @@ export default function Settings() {
               {...register('oldPassword')}
             />
             {showOldPassword ? (
-              <EyeOff className={styles.Eyeicon} onClick={() => setShowOldPassword(!showOldPassword)} />
+              <EyeOff size={18} className={styles.Eyeicon} onClick={() => setShowOldPassword(!showOldPassword)} />
             ) : (
-              <Eye className={styles.Eyeicon} onClick={() => setShowOldPassword(!showOldPassword)} />
+              <Eye size={18} className={styles.Eyeicon} onClick={() => setShowOldPassword(!showOldPassword)} />
             )}
           </div>
           {errors.oldPassword && (
@@ -147,7 +147,7 @@ export default function Settings() {
 
         <div className={styles.formGroup}>
           <div className={styles.inputContainer}>
-            <Lock className={styles.icon} />
+            <Lock size={18} className={styles.icon} />
             <input
               id="newPassword"
               type={showNewPassword ? 'text' : 'password'}
@@ -155,9 +155,9 @@ export default function Settings() {
               {...register('newPassword')}
             />
             {showNewPassword ? (
-              <EyeOff className={styles.Eyeicon} onClick={() => setShowNewPassword(!showNewPassword)} />
+              <EyeOff size={18} className={styles.Eyeicon} onClick={() => setShowNewPassword(!showNewPassword)} />
             ) : (
-              <Eye className={styles.Eyeicon} onClick={() => setShowNewPassword(!showNewPassword)} />
+              <Eye size={18} className={styles.Eyeicon} onClick={() => setShowNewPassword(!showNewPassword)} />
             )}
           </div>
           {errors.newPassword && (

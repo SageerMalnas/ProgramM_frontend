@@ -2,11 +2,10 @@ import React, { useContext, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { FaEnvelope, FaLock } from "react-icons/fa";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import styles from './styles/login.module.css';
 import groupPhoto from '../../assets/Group.png'
-import { Eye, Lock, Mail, User } from 'lucide-react';
+import { Eye, LockKeyhole, Mail, EyeOff } from 'lucide-react';
 
 const Login = () => {
     const { login } = useContext(AuthContext);
@@ -43,33 +42,33 @@ const Login = () => {
                 <h2>Login</h2>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.inputGroup}>
-                        <FaEnvelope className={styles.icon} />
+                        <Mail size={18} className={styles.icon} />
                         <input
                             type="email"
                             name="email"
                             placeholder="Email"
                             value={form.email}
                             onChange={handleChange}
-                            required
                         />
                     </div>
                     <div className={styles.inputGroup}>
-                        <FaLock className={styles.icon} />
+                        <LockKeyhole size={18} className={styles.icon} />
                         <input
                             type={showPassword ? "text" : "password"}
                             name="password"
                             placeholder="Password"
                             value={form.password}
                             onChange={handleChange}
-                            required
                         />
                         {showPassword ? (
-                            <MdVisibilityOff
+                            <EyeOff
+                                size={18}
                                 className={styles.toggleIcon}
                                 onClick={() => setShowPassword(false)}
                             />
                         ) : (
-                            <MdVisibility
+                            <Eye
+                                size={18}
                                 className={styles.toggleIcon}
                                 onClick={() => setShowPassword(true)}
                             />
