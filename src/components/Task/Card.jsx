@@ -72,7 +72,6 @@ export default function Card({ task, isOpen, toggleDisclosure }) {
     ))
     : null;
 
-  console.log(assignedUserIcon)
 
   const priorityClass = task.priority === 'low' ? styles.lowPriority :
     task.priority === 'moderate' ? styles.moderatePriority :
@@ -175,5 +174,4 @@ Card.propTypes = {
   task: PropTypes.object.isRequired,
   isOpen: PropTypes.bool.isRequired,
   toggleDisclosure: PropTypes.func.isRequired,
-  onDeleteTask: PropTypes.func.isRequired,
 };

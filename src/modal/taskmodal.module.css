@@ -160,12 +160,14 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 .calendarOverlay {
   position: relative;
   display: inline-block;
-  margin-top: 2px;
+  /* margin-top: 2px; */
   width: 120px;
 }
 

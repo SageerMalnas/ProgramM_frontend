@@ -17,11 +17,11 @@ const CheckListItem = ({ list, onToggle }) => (
 );
 
 const CheckLists = ({ task,isOpen, toggleDisclosure, onTaskUpdate}) => {
-  const [lists, setLists] = useState(task.checklists);
+  const [lists, setLists] = useState([]);
  
   useEffect(() => {
-    setLists(task.checklists);
-  }, [task.checklists]);
+    setLists(task.checklists || []);
+  }, [task]);
 
   const handleToggleChecklist = (listId, checked) => {
     const updatedLists = lists.map((list) =>

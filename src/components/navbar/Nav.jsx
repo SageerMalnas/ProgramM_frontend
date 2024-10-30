@@ -17,7 +17,6 @@ export default function Nav() {
   return (
     <>
       <div className={styles.container}>
-        {/* Logo Section */}
         <div className={styles.logo}>
           <div className={styles.image}>
             <img src={logo} alt="Pro Manage" />
@@ -27,7 +26,6 @@ export default function Nav() {
           </h4>
         </div>
 
-        {/* Navigation Links */}
         <nav className={styles.links}>
           <NavLink
             to="/dashboard/board"
@@ -35,7 +33,7 @@ export default function Nav() {
             style={{textDecoration: 'none'}}
           >
             <div className={styles.icon}>
-              <PanelsTopLeft size={14} color="#767575" />
+              <PanelsTopLeft size={14} color="black" />
             </div>
             <span className={styles.NavText}>Board</span>
           </NavLink>
@@ -46,7 +44,7 @@ export default function Nav() {
             style={{textDecoration: 'none'}}
           >
             <div className={styles.icon}>
-              <Database size={14} color="#767575" />
+              <Database size={14} color="black" />
             </div>
             <span className={styles.NavText}>Analytics</span>
           </NavLink>
@@ -57,13 +55,12 @@ export default function Nav() {
             style={{textDecoration: 'none'}}
           >
             <div className={styles.icon}>
-              <Settings size={14} color="#767575" />
+              <Settings size={14} color="black" />
             </div>
             <span className={styles.NavText}>Settings</span>
           </NavLink>
         </nav>
 
-        {/* Logout Button */}
         <div onClick={toggleLogoutModal} className={styles.logout}>
           <div className={styles.icon}>
             <LogOut size={14} />
@@ -72,7 +69,6 @@ export default function Nav() {
         </div>
       </div>
 
-      {/* Logout Modal */}
       {isLogoutModalOpen && (
         <ConfirmationModal toggleModal={toggleLogoutModal} actionType="logout" /> 
       )}

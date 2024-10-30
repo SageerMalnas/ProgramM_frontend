@@ -5,11 +5,12 @@ import styles from './board.module.css';
 import TasksContainer from '../../../components/Task/TaskContainer';
 import Modal from '../../../modal/AddUserModal';
 import {UsersRound} from 'lucide-react';
+import { format } from 'date-fns';
+
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 function getFormattedDate(date) {
-  return date.toDateString();
-}
+  return format(date, "do MMM yyyy")}
 
 const options = [
   { id: 1, name: 'Today', value: 1 },

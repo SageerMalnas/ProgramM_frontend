@@ -1,4 +1,3 @@
-/* board.module.css */
 
 .container {
   height: 100%;
@@ -16,6 +15,8 @@
 
 .groupOne h1{
   font-size:large;
+  color: black;
+  font-weight: 600;
 }
 
 .groupTwo {
@@ -25,13 +26,11 @@
 }
 .groupTwo h2{
   font-size: x-large;
-  font-weight: 600;
+  font-weight: 500;
   margin-top: 20px;
+  color: black;
 }
-h1 {
-  font-size: 1.8rem;
-  color: #2D3748;
-}
+
 
 .heading{
   display: flex;

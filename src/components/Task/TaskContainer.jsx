@@ -55,13 +55,7 @@ export default function TaskContainerPage() {
                 )}
                 <CopyMinus
                   size={20}
-                  color={Object.keys(isOpenState).some((key) => tasks.find(
-                    (task) => task._id === key && task.status === category.value
-                  )
-                  )
-                    ? '#17a2b8'
-                    : '#767575'}
-
+                  color={'#767575'}
                   onClick={() => closeCategoryChecklists(category.value)}
                 />
               </div>
@@ -77,7 +71,6 @@ export default function TaskContainerPage() {
                     // isOpen={openDisclosures.includes(task._id)}
                     isOpen={isOpenState[task._id] || false}
                     toggleDisclosure={() => toggleDisclosure(task._id)}
-
                   />
                 ))}
 

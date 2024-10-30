@@ -2,19 +2,19 @@ import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styles from './taskmodal.module.css';
 import toast from 'react-hot-toast';
-import { fetchUserByEmail, getUser } from '../api/updateapi';
+import { getUser } from '../api/updateapi';
 import { TaskContext } from '../context/TaskContext';
 import AuthContext from '../context/AuthContext';
 import { Trash } from 'lucide-react';
 
 
 const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
-  const { addTask, majorTaskUpdate, tasks, setTasks } = useContext(TaskContext);
+  const { addTask, majorTaskUpdate } = useContext(TaskContext);
   const { user } = useContext(AuthContext);
 
   const [title, setTitle] = useState('');
-  const [priority, setPriority] = useState('low');
-  const [checklists, setChecklists] = useState([{ title: '', checked: false }]);
+  const [priority, setPriority] = useState('');
+  const [checklists, setChecklists] = useState([]);
   const [dueDate, setDueDate] = useState('');
   const [assignedTo, setAssignedTo] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -55,41 +55,42 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
     }
   }, [actionType, existingTask]);
 
-  const handleChecklistChange = (index, value) => {
-    const updatedChecklists = [...checklists];
-    updatedChecklists[index].title = value;
-    setChecklists(updatedChecklists);
-  };
-
   const getChecklistCount = () => {
     const completedCount = checklists.filter(item => item.checked).length;
     return `(${completedCount}/${checklists.length})`;
   };
 
-  const handleAddChecklist = () => {
+  const handleChecklistChange = (index, value) => {
+    setChecklists((prevChecklists) => {
+      const updatedChecklists = [...prevChecklists];
+      updatedChecklists[index] = { ...updatedChecklists[index], title: value };
+      return updatedChecklists;
+    });
+  };
+  const handleAddChecklistItem = () => {
     setChecklists([...checklists, { title: '', checked: false }]);
   };
 
   const handleRemoveChecklist = (index) => {
-    const updatedChecklists = [...checklists];
-    updatedChecklists.splice(index, 1);
-    setChecklists(updatedChecklists);
+    setChecklists((prevChecklists) => prevChecklists.filter((_, i) => i !== index));
   };
 
   const handleToggleChecklist = (index) => {
-    const updatedChecklists = [...checklists];
-    updatedChecklists[index].checked = !updatedChecklists[index].checked;
-    setChecklists(updatedChecklists);
+    setChecklists((prevChecklists) => {
+      const updatedChecklists = [...prevChecklists];
+      updatedChecklists[index] = {
+        ...updatedChecklists[index],
+        checked: !updatedChecklists[index].checked,
+      };
+      return updatedChecklists;
+    });
+    // onTaskUpdate({ ...existingTask, checklists });
   };
 
   const handleUserSelect = (user) => {
     setAssignedTo(user.email);
     setAssignedUserId(user._id);
     setDropdownOpen(false);
-  };
-
-  const handleAssignUser = (user) => {
-    handleUserSelect(user);
   };
 
   const handleSaveTask = async () => {
@@ -99,8 +100,12 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
       setErrorMessage('Title is required');
       return;
     }
+    if (!priority) {
+      setErrorMessage('Please select a priority');
+      return;
+    }
     if (checklists.length === 0 || checklists.some(item => item.title.trim() === '')) {
-      setErrorMessage('Please enter at least one checklist item');
+      setErrorMessage('Please enter checklist item');
       return;
     }
 
@@ -134,6 +139,17 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
       setErrorMessage(error.message || 'An error occurred while saving the task');
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleDueDateChange = (e) => {
+    const selectedDate = e.target.value;
+    const today = new Date().toISOString().split('T')[0];
+    if (selectedDate < today) {
+      setErrorMessage('Due date cannot be in the past');
+    } else {
+      setDueDate(selectedDate);
+      setErrorMessage('');
     }
   };
 
@@ -179,43 +195,41 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
           </div>
         </div>
 
-        
-        <label className={styles.AssignedUser}>
-          Assign to
-          <div className={styles.assignedInputWrapper}>
-            <div className={styles.dropdownContainer} onClick={() => setDropdownOpen(!dropdownOpen)}>
-              <div className={styles.selectedUser}>{assignedTo || 'Add a assignee'}</div>
-              {dropdownOpen && (
 
-                <div className={styles.dropdownMenu}>
-                  {users.map(user => (
-                    <div key={user._id} className={styles.dropdownItem}>
-                      <div className={styles.userInfo}>
-                        <div className={styles.userIcon}>
-                          {user.email.substring(0, 2).toUpperCase()}
+        {checklists.length > 0 && (
+          <label className={styles.AssignedUser}>
+            Assign to
+            <div className={styles.assignedInputWrapper}>
+              <div className={styles.dropdownContainer} onClick={() => setDropdownOpen(!dropdownOpen)}>
+                <div className={styles.selectedUser}>{assignedTo || 'Add a assignee'}</div>
+                {dropdownOpen && (
+                  <div className={styles.dropdownMenu}>
+                    {users.map(user => (
+                      <div key={user._id} className={styles.dropdownItem}>
+                        <div className={styles.userInfo}>
+                          <div className={styles.userIcon}>
+                            {user.email.substring(0, 2).toUpperCase()}
+                          </div>
+                          <span>{user.email}</span>
                         </div>
-                        <span>{user.email}</span>
+                        <div
+                          className={styles.AssignBtn}
+                          onClick={() => handleUserSelect(user)}
+                        >
+                          Assign
+                        </div>
                       </div>
-                      <div
-                        className={styles.AssignBtn}
-                        onClick={() => handleUserSelect(user)}
-                      >
-                        Assign
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-              )}
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        </label>
+          </label>
+        )}
         <label className={styles.CheckTitle}>
           <span>
             Checklist {getChecklistCount()} <span style={{ color: 'red' }}>*</span>
           </span>
-
-
           <div className={styles.CheckContainer}>
             {checklists.map((item, index) => (
               <div key={index} className={styles.checklistItem}>
@@ -242,7 +256,7 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
           </div>
 
         </label>
-        <button type="button" onClick={handleAddChecklist} className={styles.addBtn}>
+        <button type="button" onClick={handleAddChecklistItem} className={styles.addBtn}>
           + Add New
         </button>
         {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
@@ -259,8 +273,9 @@ const TaskModal = ({ isOpen, onClose, actionType, existingTask }) => {
               id="dateInput"
               type="date"
               value={dueDate}
-              onChange={(e) => setDueDate(e.target.value)}
+              onChange={handleDueDateChange}
               className={styles.dateInputHidden}
+              min={new Date().toISOString().split('T')[0]}
             />
           </div>
           <div className={styles.modalActions}>

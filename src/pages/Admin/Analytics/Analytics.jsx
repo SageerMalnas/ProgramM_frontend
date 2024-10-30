@@ -16,9 +16,9 @@ export default function Analytics() {
       try {
         setIsLoading(true);
         const analyticsData = await getAnalytics(token);
-        setData(analyticsData.data); 
+        setData(analyticsData.data);
       } catch (error) {
-        setError(error.message); 
+        setError(error.message);
       } finally {
         setIsLoading(false);
       }
