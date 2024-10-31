@@ -12,6 +12,7 @@
     border: 2px solid #e2e2e2;
     border-radius: 0.75rem;
     margin-top: 0.75rem;
+    word-break: break-word;
 }
 
 /* .checklistItem input {

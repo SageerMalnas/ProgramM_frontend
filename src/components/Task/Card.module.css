@@ -33,6 +33,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+  word-break: break-word;
 }
 
 h3 {
@@ -42,11 +43,13 @@ h3 {
   line-height: 1.5;
   max-width: 100%;
   position: relative;
+  word-break: break-word;
 }
 
 h3:hover {
   overflow: visible;
   white-space: normal;
+  word-break: break-word;
 }
 
 .menu {
