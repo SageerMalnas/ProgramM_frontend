@@ -3,6 +3,9 @@
 command: npm install
 run command: npm run dev
 
+
+Backend is hoisted to Render, so please wait for a fraction of time for login and register
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
